@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YASS — protótipos de pulso (menu bar)</title>
+<style>
+  :root{ --accent:#c77dff; --ok:#5cc46a; --info:#6bb6ff; --bg:#0c0c0c; --bar:#1c1c1c; --text:#e4e4e4; --muted:#9a9a9a; --font:'SF Mono',ui-monospace,monospace; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);padding:28px;line-height:1.5}
+  h1{font-size:16px;color:var(--accent);letter-spacing:.04em}
+  p.sub{color:var(--muted);font-size:12px;margin:6px 0 22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+  .card{border:1px solid #242424;border-radius:10px;overflow:hidden;background:#111}
+  /* simula a barra de menu do macOS */
+  .bar{display:flex;align-items:center;justify-content:flex-end;gap:10px;height:30px;padding:0 10px;
+       background:linear-gradient(#2a2a2c,#202022);border-bottom:1px solid #000}
+  .bar .clock{color:#cfcfcf;font-size:11px}
+  .slot{width:18px;height:18px;display:flex;align-items:center;justify-content:center;color:#cfcfcf}
+  .meta{display:flex;justify-content:space-between;align-items:center;padding:9px 11px}
+  .name{font-size:12px;font-weight:600}
+  .num{font-size:10px;color:var(--muted)}
+
+  /* 1 — Breathing dot (respiro) */
+  .p1{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:breathe 1.4s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+
+  /* 2 — Ping ring (anel expansivo) */
+  .p2{position:relative;width:9px;height:9px}
+  .p2 i{position:absolute;inset:0;border-radius:50%;background:var(--info)}
+  .p2::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--info);animation:ping 1.3s cubic-bezier(0,0,.2,1) infinite}
+  @keyframes ping{0%{transform:scale(1);opacity:.7}80%,100%{transform:scale(2.6);opacity:0}}
+
+  /* 3 — Equalizer (barras) */
+  .p3{display:flex;align-items:flex-end;gap:2px;height:14px}
+  .p3 span{width:3px;background:var(--accent);border-radius:2px;animation:eq 0.9s ease-in-out infinite}
+  .p3 span:nth-child(1){animation-delay:0s}
+  .p3 span:nth-child(2){animation-delay:.15s}
+  .p3 span:nth-child(3){animation-delay:.3s}
+  .p3 span:nth-child(4){animation-delay:.45s}
+  @keyframes eq{0%,100%{height:4px}50%{height:14px}}
+
+  /* 4 — Waveform (senóide) */
+  .p4{display:flex;align-items:center;gap:2px;height:14px}
+  .p4 span{width:2px;height:3px;background:var(--ok);border-radius:2px;animation:wv 1s ease-in-out infinite}
+  .p4 span:nth-child(odd){animation-delay:.25s}
+  .p4 span:nth-child(3n){animation-delay:.5s}
+  @keyframes wv{0%,100%{height:3px}50%{height:13px}}
+
+  /* 5 — Glow pulse (brilho) */
+  .p5{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:glow 1.5s ease-in-out infinite}
+  @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(199,125,255,.0)}50%{box-shadow:0 0 8px 3px rgba(199,125,255,.8)}}
+
+  /* 6 — Ripple duplo (ondas concêntricas) */
+  .p6{position:relative;width:10px;height:10px}
+  .p6 i{position:absolute;inset:3px;border-radius:50%;background:var(--info)}
+  .p6::before,.p6::after{content:"";position:absolute;inset:0;border:1.5px solid var(--info);border-radius:50%;animation:rip 1.8s ease-out infinite}
+  .p6::after{animation-delay:.9s}
+  @keyframes rip{0%{transform:scale(.4);opacity:.9}100%{transform:scale(1.4);opacity:0}}
+
+  /* 7 — Bouncing dot (saltitante) */
+  .p7{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:bnc .6s ease-in-out infinite}
+  @keyframes bnc{0%,100%{transform:translateY(2px)}50%{transform:translateY(-3px)}}
+
+  /* 8 — Rotating arc (arco girando) */
+  .p8{width:14px;height:14px;border-radius:50%;border:2px solid #333;border-top-color:var(--accent);animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* 9 — Sonar (onda sonora dupla saindo do dot) */
+  .p9{position:relative;width:16px;height:14px;display:flex;align-items:center}
+  .p9 i{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .p9::before,.p9::after{content:"";position:absolute;left:6px;top:50%;width:5px;height:5px;border:1.5px solid var(--accent);border-left:0;border-radius:0 8px 8px 0;transform:translateY(-50%);opacity:0;animation:son 1.4s ease-out infinite}
+  .p9::after{animation-delay:.5s}
+  @keyframes son{0%{opacity:.9;transform:translateY(-50%) scale(.6)}100%{opacity:0;transform:translateY(-50%) scale(1.6)}}
+</style>
+</head>
+<body>
+  <h1>🔊 YASS — estilos de "falando" pro menu bar</h1>
+  <p class="sub">Cada card simula a barra de menu do macOS. Diz qual número curtiu (ou combinação) que eu aplico no tray.</p>
+  <div class="grid">
+    <div class="card"><div class="bar"><span class="slot"><span class="p1"></span></span><span class="clock">14:32</span></div><div class="meta"><span class="name">Breathing dot</span><span class="num">1</span></div></div>
+    <div class="card"><div class="bar"><span class="slot"><span class="p2"><i></i></span></span><span class="clock">14:32</span></div><div class="meta"><span class="name">Ping ring</span><span class="num">2</span></div></div>
+    <div class="card"><div class="bar"><span class="slot"><span class="p3"><span></span><span></span><span></span><span></span></span></span><span class="clock">14:32</span></div><div class="meta"><span class="name">Equalizer</span><span class="num">3</span></div></div>
+    <div class="card"><div class="bar"><span class="slot"><span class="p4"><span></span><span></span><span></span><span></span><span></span><span></span></span></span><span class="clock">14:32</span></div><div class="meta"><span class="name">Waveform</span><span class="num">4</span></div></div>
+    <div class="card"><div class="bar"><span class="slot"><span class="p5"></span></span><span class="clock">14:32</span></div><div class="meta"><span class="name">Glow pulse</span><span class="num">5</span></div></div>
+    <div class="card"><div class="bar"><span class="slot"><span class="p6"><i></i></span></span><span class="clock">14:32</span></div><div class="meta"><span class="name">Ripple duplo</span><span class="num">6</span></div></div>
+    <div class="card"><div class="bar"><span class="slot"><span class="p7"></span></span><span class="clock">14:32</span></div><div class="meta"><span class="name">Bouncing dot</span><span class="num">7</span></div></div>
+    <div class="card"><div class="bar"><span class="slot"><span class="p8"></span></span><span class="clock">14:32</span></div><div class="meta"><span class="name">Rotating arc</span><span class="num">8</span></div></div>
+    <div class="card"><div class="bar"><span class="slot"><span class="p9"><i></i></span></span><span class="clock">14:32</span></div><div class="meta"><span class="name">Sonar</span><span class="num">9</span></div></div>
+  </div>
+</body>
+</html>

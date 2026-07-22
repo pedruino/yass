@@ -1,0 +1,18 @@
+export const speak: Record<string, string> = {
+  "speak.title": "Falar por mim",
+  "speak.subtitle": "Digite e o Jarvis fala exatamente o que você escreveu, na voz dele, sem reescrita.",
+  "speak.inputPlaceholder": "O que você quer dizer?",
+  "speak.inputAria": "Texto para falar",
+  "speak.speakAria": "Falar",
+  "speak.soundReactivated": "Som reativado para falar",
+  "speak.sendQueueError": "Falha ao enviar para a fila",
+  "speak.quickPhrases": "frases rápidas",
+  "speak.quickPhrasesHint": "Sugestões montadas a partir do que você mais fala, adaptam com o uso.",
+  "speak.suggestedBadge": "sugeridas do seu uso",
+  "speak.refreshHint": "Atualizar as sugestões agora.",
+  "speak.refreshAria": "Atualizar sugestões",
+  "speak.yourSpeech": "suas falas",
+  "speak.emptyHistory": "Nada dito ainda. ArrowUp recupera a última.",
+  "speak.repeatHint": "Falar isto de novo.",
+  "speak.repeatAria": "Falar de novo",
+}

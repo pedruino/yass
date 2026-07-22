@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YASS — Docs</title>
+<link rel="icon" href="./icon.png">
+<style>
+  :root{
+    --bg:#0b0910; --panel:#141019; --panel-edge:#241d36; --step:#191324;
+    --fg:#f4f1fa; --muted:#a99fc0; --faint:#6f6786;
+    --brand:#8A2BE2; --brand-2:#c084fc; --maxw:1080px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f7f5fb; --panel:#ffffff; --panel-edge:#e7e2f2; --step:#f3f0fa; --fg:#1a1526; --muted:#5c5470; --faint:#8b83a0; }
+  }
+  :root[data-theme="dark"]{ --bg:#0b0910; --panel:#141019; --panel-edge:#241d36; --step:#191324; --fg:#f4f1fa; --muted:#a99fc0; --faint:#6f6786; }
+  :root[data-theme="light"]{ --bg:#f7f5fb; --panel:#ffffff; --panel-edge:#e7e2f2; --step:#f3f0fa; --fg:#1a1526; --muted:#5c5470; --faint:#8b83a0; }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  svg{display:block}
+  a{color:var(--brand-2)}
+
+  .topbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;padding:12px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--panel-edge)}
+  .topbar .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);font-weight:700}
+  .topbar .brand img{width:26px;height:26px;border-radius:7px}
+  .topbar .spacer{flex:1}
+  .topbar a.nav{color:var(--muted);text-decoration:none;font-size:14px;font-weight:600}
+  .topbar a.nav:hover{color:var(--fg)}
+  .tt{width:38px;height:38px;border-radius:10px;cursor:pointer;background:var(--panel);border:1px solid var(--panel-edge);color:var(--fg);display:grid;place-items:center}
+
+  .layout{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:230px 1fr;gap:28px;padding:28px 20px}
+  nav.side{position:sticky;top:78px;align-self:start;display:flex;flex-direction:column;gap:2px}
+  nav.side .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:6px 8px 8px}
+  nav.side button{
+    text-align:left;background:none;border:0;color:var(--muted);cursor:pointer;
+    padding:8px 12px;border-radius:9px;font:inherit;font-size:14.5px;font-weight:600;
+  }
+  nav.side button:hover{background:var(--step);color:var(--fg)}
+  nav.side button[aria-current="true"]{background:var(--step);color:var(--fg)}
+
+  article{min-width:0}
+  .md{background:var(--panel);border:1px solid var(--panel-edge);border-radius:16px;padding:8px 28px 28px}
+  .md h1,.md h2,.md h3{line-height:1.25}
+  .md h1{font-size:30px;margin:24px 0 8px;letter-spacing:-.01em}
+  .md h2{font-size:21px;margin:28px 0 8px;padding-top:14px;border-top:1px solid var(--panel-edge)}
+  .md h3{font-size:16px;margin:20px 0 6px}
+  .md p,.md li{color:var(--muted)}
+  .md code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:var(--step);padding:.15em .4em;border-radius:6px}
+  .md pre{background:var(--step);border:1px solid var(--panel-edge);border-radius:12px;padding:16px;overflow-x:auto}
+  .md pre code{background:none;padding:0}
+  .md table{border-collapse:collapse;width:100%;overflow-x:auto;display:block}
+  .md th,.md td{border:1px solid var(--panel-edge);padding:7px 11px;text-align:left;font-size:14px}
+  .md img{max-width:100%}
+  .md blockquote{margin:12px 0;padding:2px 16px;border-left:3px solid var(--brand);color:var(--faint)}
+  @media (max-width:760px){ .layout{grid-template-columns:1fr} nav.side{position:static;flex-direction:row;flex-wrap:wrap} }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="brand" href="./index.html"><img src="./icon.png" alt="">YASS</a>
+  <span class="spacer"></span>
+  <a class="nav" href="./index.html">Home</a>
+  <a class="nav" href="https://github.com/pedruino/yass">Source</a>
+  <button class="tt" id="tt" aria-label="Toggle theme"></button>
+</div>
+
+<div class="layout">
+  <nav class="side" id="side">
+    <span class="lbl">Documentation</span>
+  </nav>
+  <article><div class="md" id="content">Loading…</div></article>
+</div>
+
+<script type="module">
+  import { marked } from 'https://cdn.jsdelivr.net/npm/marked@14/lib/marked.esm.js';
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+  const s = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="19" height="19">${p}</svg>`;
+  const SUN = s('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>');
+  const MOON = s('<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>');
+
+  const root = document.documentElement, tt = document.getElementById('tt');
+  const sysDark = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const current = () => root.getAttribute('data-theme') || (sysDark() ? 'dark' : 'light');
+  function apply(t){ root.setAttribute('data-theme', t); tt.innerHTML = t === 'dark' ? SUN : MOON; }
+  let saved=null; try{ saved=localStorage.getItem('yass-theme'); }catch(e){}
+  apply(saved || (sysDark() ? 'dark' : 'light'));
+  tt.addEventListener('click', () => { const n = current()==='dark'?'light':'dark'; apply(n); try{ localStorage.setItem('yass-theme', n); }catch(e){} if (currentId) select(currentId); });
+
+  // Docs hosted alongside the site (copied into docs-src/ at deploy time).
+  const DOCS = [
+    { id: 'readme', title: 'Overview', file: 'readme.md' },
+    { id: 'contributing', title: 'Contributing', file: 'contributing.md' },
+    { id: 'waveform', title: 'Waveform spec', file: 'waveform-spec.md' },
+    { id: 'tauri', title: 'Tauri app (spike)', file: 'tauri-spike.md' },
+  ];
+  const side = document.getElementById('side'), content = document.getElementById('content');
+  const btns = {};
+  DOCS.forEach((d) => {
+    const b = document.createElement('button');
+    b.textContent = d.title;
+    b.addEventListener('click', () => select(d.id));
+    side.appendChild(b);
+    btns[d.id] = b;
+  });
+
+  // Relative links in the markdown are repo-relative; in this hosted viewer they
+  // must resolve to the right place: sibling docs become in-viewer navigation,
+  // everything else points at the GitHub source.
+  const BLOB = 'https://github.com/pedruino/yass/blob/main/';
+  const RAW = 'https://raw.githubusercontent.com/pedruino/yass/main/';
+  const DOC_HASH = {
+    'readme.md': '#readme', 'README.md': '#readme',
+    'contributing.md': '#contributing', 'CONTRIBUTING.md': '#contributing',
+    'docs/waveform-spec.md': '#waveform', 'waveform-spec.md': '#waveform',
+    'docs/tauri-spike.md': '#tauri', 'tauri-spike.md': '#tauri',
+  };
+  const isAbsolute = (u) => /^(https?:)?\/\//i.test(u) || u.startsWith('#') || u.startsWith('mailto:');
+  function fixLinks(container){
+    container.querySelectorAll('a[href]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (!href || isAbsolute(href)) return;
+      const clean = href.replace(/^\.\//, '');
+      if (DOC_HASH[clean]) { a.setAttribute('href', DOC_HASH[clean]); return; }
+      a.setAttribute('href', BLOB + clean);
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    });
+    container.querySelectorAll('img[src]').forEach((img) => {
+      const src = img.getAttribute('src');
+      if (!src || isAbsolute(src)) return;
+      const clean = src.replace(/^\.\//, '');
+      img.setAttribute('src', clean.endsWith('icon.png') ? './icon.png' : RAW + clean);
+    });
+  }
+
+  let mmId = 0;
+  async function renderMermaid(){
+    const blocks = content.querySelectorAll('code.language-mermaid');
+    if (!blocks.length) return;
+    mermaid.initialize({ startOnLoad: false, securityLevel: 'strict', theme: current() === 'dark' ? 'dark' : 'default', flowchart: { curve: 'basis' } });
+    for (const code of blocks) {
+      try {
+        const { svg } = await mermaid.render('mm' + (++mmId), code.textContent);
+        const wrap = document.createElement('div');
+        wrap.innerHTML = svg;
+        code.closest('pre').replaceWith(wrap);
+      } catch (e) { /* leave the code block as-is if the diagram fails */ }
+    }
+  }
+
+  let currentId = null;
+  async function select(id){
+    const d = DOCS.find((x) => x.id === id) || DOCS[0];
+    currentId = d.id;
+    Object.values(btns).forEach((b) => b.removeAttribute('aria-current'));
+    btns[d.id].setAttribute('aria-current', 'true');
+    if (location.hash.slice(1) !== d.id) history.replaceState(null, '', '#' + d.id);
+    try {
+      const res = await fetch('./docs-src/' + d.file);
+      if (!res.ok) throw new Error(res.status);
+      content.innerHTML = marked.parse(await res.text());
+      fixLinks(content);
+      await renderMermaid();
+    } catch (e) {
+      content.innerHTML = '<p>Could not load this document.</p>';
+    }
+    content.parentElement.scrollTop = 0;
+  }
+
+  window.addEventListener('hashchange', () => select(location.hash.slice(1)));
+  select(location.hash.slice(1) || 'readme');
+</script>
+</body>
+</html>

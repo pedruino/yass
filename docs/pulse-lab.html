@@ -1,0 +1,623 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>YASS — Pulse Lab</title>
+<style>
+:root{--accent:#c77dff;--info:#6bb6ff;--ok:#5cc46a;--bg:#0c0c0c;--text:#e4e4e4;--muted:#9a9a9a;--font:'SF Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);padding:24px}
+h1{font-size:16px;color:var(--accent);letter-spacing:.04em}
+p.sub{color:var(--muted);font-size:12px;margin:6px 0 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.card{border:1px solid #242424;border-radius:10px;overflow:hidden;background:#111}
+.mb{display:flex;align-items:center;justify-content:flex-end;gap:8px;height:28px;padding:0 9px;background:linear-gradient(#2a2a2c,#202022);border-bottom:1px solid #000}
+.mb .clk{color:#cfcfcf;font-size:10px}
+.mb .ico{display:flex;align-items:center;justify-content:center;width:22px;height:22px}
+.wb{display:flex;align-items:center;gap:7px;height:34px;padding:0 11px;background:#111;border-bottom:1px solid #1c1c1c}
+.wb .t{font-size:9px;color:var(--info);text-transform:uppercase;letter-spacing:.05em}
+.lbl{padding:7px 10px;font-size:10px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body>
+<h1>🔊 YASS — Pulse Lab</h1><p class="sub">~50 indicadores de "falando". Cada card: mock do menu bar (cima) + barra do widget (baixo). Diz os números que curtiu.</p>
+<div class="grid">
+<div class="card"><style>
+.wf1-ico,.wf1-bar{display:inline-flex;align-items:flex-end;gap:2px;height:100%}
+.wf1-ico span,.wf1-bar span{display:block;border-radius:2px}
+.wf1-ico span{width:2px;background:var(--accent,#c77dff)}
+.wf1-bar span{width:3px;background:var(--info,#6bb6ff)}
+.wf1-ico{height:22px}.wf1-bar{height:16px}
+.wf1-ico span:nth-child(1),.wf1-bar span:nth-child(1){animation:wf1bar 1s ease-in-out infinite -.0s}
+.wf1-ico span:nth-child(2),.wf1-bar span:nth-child(2){animation:wf1bar 1s ease-in-out infinite -.2s}
+.wf1-ico span:nth-child(3),.wf1-bar span:nth-child(3){animation:wf1bar 1s ease-in-out infinite -.4s}
+.wf1-ico span:nth-child(4),.wf1-bar span:nth-child(4){animation:wf1bar 1s ease-in-out infinite -.6s}
+.wf1-ico span:nth-child(5),.wf1-bar span:nth-child(5){animation:wf1bar 1s ease-in-out infinite -.8s}
+@keyframes wf1bar{0%,100%{height:25%}50%{height:100%}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="wf1-ico"><span></span><span></span><span></span><span></span><span></span></span></span></div>
+  <div class="wb"><span class="wf1-bar"><span></span><span></span><span></span><span></span><span></span></span><span class="t">tocando</span></div>
+  <div class="lbl">wf-1 · Equalizer clássico</div>
+</div>
+<div class="card"><style>
+.wf2-ico,.wf2-bar{display:inline-flex;align-items:center;gap:2px;height:100%}
+.wf2-ico span,.wf2-bar span{display:block;border-radius:99px}
+.wf2-ico span{width:2px;background:var(--accent,#c77dff)}
+.wf2-bar span{width:3px;background:#fff}
+.wf2-ico{height:22px}.wf2-bar{height:16px}
+.wf2-ico span,.wf2-bar span{animation:wf2pulse 1.1s ease-in-out infinite}
+.wf2-ico span:nth-child(1),.wf2-bar span:nth-child(1){animation-delay:-.0s}
+.wf2-ico span:nth-child(2),.wf2-bar span:nth-child(2){animation-delay:-.15s}
+.wf2-ico span:nth-child(3),.wf2-bar span:nth-child(3){animation-delay:-.3s}
+.wf2-ico span:nth-child(4),.wf2-bar span:nth-child(4){animation-delay:-.45s}
+.wf2-ico span:nth-child(5),.wf2-bar span:nth-child(5){animation-delay:-.6s}
+.wf2-ico span:nth-child(6),.wf2-bar span:nth-child(6){animation-delay:-.75s}
+.wf2-ico span:nth-child(7),.wf2-bar span:nth-child(7){animation-delay:-.9s}
+@keyframes wf2pulse{0%,100%{height:20%;opacity:.5}50%{height:100%;opacity:1}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="wf2-ico"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></span></div>
+  <div class="wb"><span class="wf2-bar"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span><span class="t">tocando</span></div>
+  <div class="lbl">wf-2 · Onda viajante</div>
+</div>
+<div class="card"><style>
+.wf3-ico,.wf3-bar{display:inline-flex;align-items:center;gap:2px;height:100%}
+.wf3-ico span,.wf3-bar span{display:block;width:2px;border-radius:2px;background:linear-gradient(var(--accent,#c77dff),var(--info,#6bb6ff))}
+.wf3-bar span{width:3px}
+.wf3-ico{height:22px}.wf3-bar{height:16px}
+.wf3-ico span:nth-child(1),.wf3-bar span:nth-child(1){animation:wf3sym 1.2s ease-in-out infinite -.6s}
+.wf3-ico span:nth-child(2),.wf3-bar span:nth-child(2){animation:wf3sym 1.2s ease-in-out infinite -.4s}
+.wf3-ico span:nth-child(3),.wf3-bar span:nth-child(3){animation:wf3sym 1.2s ease-in-out infinite -.2s}
+.wf3-ico span:nth-child(4),.wf3-bar span:nth-child(4){animation:wf3sym 1.2s ease-in-out infinite -.4s}
+.wf3-ico span:nth-child(5),.wf3-bar span:nth-child(5){animation:wf3sym 1.2s ease-in-out infinite -.6s}
+@keyframes wf3sym{0%,100%{height:30%}50%{height:100%}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="wf3-ico"><span></span><span></span><span></span><span></span><span></span></span></span></div>
+  <div class="wb"><span class="wf3-bar"><span></span><span></span><span></span><span></span><span></span></span><span class="t">tocando</span></div>
+  <div class="lbl">wf-3 · Simétrico centro</div>
+</div>
+<div class="card"><style>
+.wf4-ico,.wf4-bar{display:inline-flex;align-items:center;gap:1px;height:100%}
+.wf4-ico span,.wf4-bar span{display:block;width:2px;border-radius:2px;background:var(--info,#6bb6ff)}
+.wf4-bar span{width:2px}
+.wf4-ico{height:22px}.wf4-bar{height:16px}
+.wf4-ico span:nth-child(odd),.wf4-bar span:nth-child(odd){background:var(--accent,#c77dff)}
+.wf4-ico span,.wf4-bar span{animation:wf4jit .7s ease-in-out infinite}
+.wf4-ico span:nth-child(1),.wf4-bar span:nth-child(1){animation-delay:-.05s}
+.wf4-ico span:nth-child(2),.wf4-bar span:nth-child(2){animation-delay:-.32s}
+.wf4-ico span:nth-child(3),.wf4-bar span:nth-child(3){animation-delay:-.18s}
+.wf4-ico span:nth-child(4),.wf4-bar span:nth-child(4){animation-delay:-.55s}
+.wf4-ico span:nth-child(5),.wf4-bar span:nth-child(5){animation-delay:-.27s}
+.wf4-ico span:nth-child(6),.wf4-bar span:nth-child(6){animation-delay:-.6s}
+.wf4-ico span:nth-child(7),.wf4-bar span:nth-child(7){animation-delay:-.12s}
+@keyframes wf4jit{0%,100%{height:35%}50%{height:95%}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="wf4-ico"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></span></div>
+  <div class="wb"><span class="wf4-bar"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span><span class="t">tocando</span></div>
+  <div class="lbl">wf-4 · Jitter aleatório</div>
+</div>
+<div class="card"><style>
+.wf5-ico,.wf5-bar{display:inline-flex;align-items:center;gap:2px;height:100%}
+.wf5-ico span,.wf5-bar span{display:block;width:3px;border-radius:99px;background:var(--accent,#c77dff);box-shadow:0 0 6px var(--accent,#c77dff)}
+.wf5-bar span{width:3px}
+.wf5-ico{height:22px}.wf5-bar{height:16px}
+.wf5-ico span:nth-child(1),.wf5-bar span:nth-child(1){animation:wf5glow 1.4s ease-in-out infinite -.0s}
+.wf5-ico span:nth-child(2),.wf5-bar span:nth-child(2){animation:wf5glow 1.4s ease-in-out infinite -.28s}
+.wf5-ico span:nth-child(3),.wf5-bar span:nth-child(3){animation:wf5glow 1.4s ease-in-out infinite -.56s}
+.wf5-ico span:nth-child(4),.wf5-bar span:nth-child(4){animation:wf5glow 1.4s ease-in-out infinite -.84s}
+@keyframes wf5glow{0%,100%{height:25%;opacity:.6;box-shadow:0 0 2px var(--accent,#c77dff)}50%{height:100%;opacity:1;box-shadow:0 0 8px var(--accent,#c77dff)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="wf5-ico"><span></span><span></span><span></span><span></span></span></span></div>
+  <div class="wb"><span class="wf5-bar"><span></span><span></span><span></span><span></span></span><span class="t">tocando</span></div>
+  <div class="lbl">wf-5 · Neon glow</div>
+</div>
+<div class="card"><style>
+.wf6-ico,.wf6-bar{display:inline-flex;align-items:center;gap:2px;height:100%}
+.wf6-ico span,.wf6-bar span{display:block;width:2px;border-radius:2px}
+.wf6-bar span{width:3px}
+.wf6-ico{height:22px}.wf6-bar{height:16px}
+.wf6-ico span:nth-child(3n+1),.wf6-bar span:nth-child(3n+1){background:var(--accent,#c77dff)}
+.wf6-ico span:nth-child(3n+2),.wf6-bar span:nth-child(3n+2){background:#fff}
+.wf6-ico span:nth-child(3n),.wf6-bar span:nth-child(3n){background:var(--info,#6bb6ff)}
+.wf6-ico span,.wf6-bar span{animation:wf6wave .9s ease-in-out infinite}
+.wf6-ico span:nth-child(1),.wf6-bar span:nth-child(1){animation-delay:-.0s}
+.wf6-ico span:nth-child(2),.wf6-bar span:nth-child(2){animation-delay:-.1s}
+.wf6-ico span:nth-child(3),.wf6-bar span:nth-child(3){animation-delay:-.2s}
+.wf6-ico span:nth-child(4),.wf6-bar span:nth-child(4){animation-delay:-.3s}
+.wf6-ico span:nth-child(5),.wf6-bar span:nth-child(5){animation-delay:-.4s}
+.wf6-ico span:nth-child(6),.wf6-bar span:nth-child(6){animation-delay:-.5s}
+@keyframes wf6wave{0%,100%{height:20%}50%{height:100%}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="wf6-ico"><span></span><span></span><span></span><span></span><span></span><span></span></span></span></div>
+  <div class="wb"><span class="wf6-bar"><span></span><span></span><span></span><span></span><span></span><span></span></span><span class="t">tocando</span></div>
+  <div class="lbl">wf-6 · Tri-cor cascata</div>
+</div>
+<div class="card"><style>
+.pl1-dot{display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--accent,#c77dff);animation:pl1-pulse 1.2s ease-in-out infinite}
+@keyframes pl1-pulse{0%,100%{transform:scale(.55);opacity:.45}50%{transform:scale(1);opacity:1;box-shadow:0 0 8px var(--accent,#c77dff)}}
+.pl1-bar{display:inline-block;width:16px;height:16px;border-radius:50%;background:var(--accent,#c77dff);vertical-align:middle;animation:pl1-pulse 1.2s ease-in-out infinite}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="pl1-dot"></span></span></div>
+  <div class="wb"><span class="pl1-bar"></span><span class="t">tocando</span></div>
+  <div class="lbl">pl-1 · Pulse Dot</div>
+</div>
+<div class="card"><style>
+.pl2-ring{position:relative;display:inline-block;width:22px;height:22px;border-radius:50%;background:var(--info,#6bb6ff)}
+.pl2-ring::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--info,#6bb6ff);animation:pl2-ripple 1.4s ease-in-out infinite}
+@keyframes pl2-ripple{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.8);opacity:0}}
+.pl2-rb{position:relative;display:inline-block;width:16px;height:16px;border-radius:50%;background:var(--info,#6bb6ff);vertical-align:middle}
+.pl2-rb::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--info,#6bb6ff);animation:pl2-ripple 1.4s ease-in-out infinite}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="pl2-ring"></span></span></div>
+  <div class="wb"><span class="pl2-rb"></span><span class="t">tocando</span></div>
+  <div class="lbl">pl-2 · Ripple Ring</div>
+</div>
+<div class="card"><style>
+.pl3-glow{display:inline-block;width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0%,var(--accent,#c77dff) 55%,transparent 75%);animation:pl3-breathe 2s ease-in-out infinite}
+@keyframes pl3-breathe{0%,100%{transform:scale(.7);filter:brightness(.7)}50%{transform:scale(1.05);filter:brightness(1.4)}}
+.pl3-gb{display:inline-block;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0%,var(--accent,#c77dff) 55%,transparent 75%);vertical-align:middle;animation:pl3-breathe 2s ease-in-out infinite}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="pl3-glow"></span></span></div>
+  <div class="wb"><span class="pl3-gb"></span><span class="t">tocando</span></div>
+  <div class="lbl">pl-3 · Breathing Glow</div>
+</div>
+<div class="card"><style>
+.pl4-halo{position:relative;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}
+.pl4-halo i{position:absolute;width:8px;height:8px;border-radius:50%;background:#fff}
+.pl4-halo::before,.pl4-halo::after{content:"";position:absolute;border-radius:50%;border:2px solid var(--info,#6bb6ff)}
+.pl4-halo::before{width:14px;height:14px;animation:pl4-throb 1.6s ease-in-out infinite}
+.pl4-halo::after{width:22px;height:22px;animation:pl4-throb 1.6s ease-in-out infinite .3s}
+@keyframes pl4-throb{0%,100%{transform:scale(.7);opacity:.3}50%{transform:scale(1);opacity:1}}
+.pl4-hb{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;vertical-align:middle}
+.pl4-hb i{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff}
+.pl4-hb::before,.pl4-hb::after{content:"";position:absolute;border-radius:50%;border:2px solid var(--info,#6bb6ff)}
+.pl4-hb::before{width:10px;height:10px;animation:pl4-throb 1.6s ease-in-out infinite}
+.pl4-hb::after{width:16px;height:16px;animation:pl4-throb 1.6s ease-in-out infinite .3s}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="pl4-halo"><i></i></span></span></div>
+  <div class="wb"><span class="pl4-hb"><i></i></span><span class="t">tocando</span></div>
+  <div class="lbl">pl-4 · Concentric Halo</div>
+</div>
+<div class="card"><style>
+.pl5-orb{display:inline-block;width:22px;height:22px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent,#c77dff),var(--info,#6bb6ff),#fff,var(--accent,#c77dff));animation:pl5-pump 1.3s ease-in-out infinite}
+@keyframes pl5-pump{0%,100%{transform:scale(.6);opacity:.6}50%{transform:scale(1);opacity:1;box-shadow:0 0 10px var(--info,#6bb6ff)}}
+.pl5-ob{display:inline-block;width:16px;height:16px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent,#c77dff),var(--info,#6bb6ff),#fff,var(--accent,#c77dff));vertical-align:middle;animation:pl5-pump 1.3s ease-in-out infinite}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="pl5-orb"></span></span></div>
+  <div class="wb"><span class="pl5-ob"></span><span class="t">tocando</span></div>
+  <div class="lbl">pl-5 · Gradient Orb</div>
+</div>
+<div class="card"><style>
+.pl6-stack{position:relative;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}
+.pl6-stack span{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--accent,#c77dff);opacity:0;animation:pl6-sonar 2.1s ease-out infinite}
+.pl6-stack span:nth-child(2){animation-delay:.7s;background:var(--info,#6bb6ff)}
+.pl6-stack span:nth-child(3){animation-delay:1.4s;background:#fff}
+@keyframes pl6-sonar{0%{transform:scale(.2);opacity:.9}100%{transform:scale(1);opacity:0}}
+.pl6-sb{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;vertical-align:middle}
+.pl6-sb span{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--accent,#c77dff);opacity:0;animation:pl6-sonar 2.1s ease-out infinite}
+.pl6-sb span:nth-child(2){animation-delay:.7s;background:var(--info,#6bb6ff)}
+.pl6-sb span:nth-child(3){animation-delay:1.4s;background:#fff}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="pl6-stack"><span></span><span></span><span></span></span></span></div>
+  <div class="wb"><span class="pl6-sb"><span></span><span></span><span></span></span><span class="t">tocando</span></div>
+  <div class="lbl">pl-6 · Sonar Stack</div>
+</div>
+<div class="card"><style>.gl1-ico{display:inline-flex;align-items:center;gap:2px;height:22px;justify-content:center}.gl1-bar{display:inline-flex;align-items:center;gap:2px;height:16px;justify-content:center}.gl1-ico i,.gl1-bar i{display:block;width:3px;border-radius:3px;background:var(--accent,#c77dff);box-shadow:0 0 4px var(--accent,#c77dff),0 0 8px var(--accent,#c77dff);animation:gl1-pulse 1.1s ease-in-out infinite}.gl1-ico i{height:60%}.gl1-bar i{height:70%}.gl1-ico i:nth-child(1),.gl1-bar i:nth-child(1){animation-delay:0s}.gl1-ico i:nth-child(2),.gl1-bar i:nth-child(2){animation-delay:.18s;background:var(--info,#6bb6ff);box-shadow:0 0 4px var(--info,#6bb6ff),0 0 8px var(--info,#6bb6ff)}.gl1-ico i:nth-child(3),.gl1-bar i:nth-child(3){animation-delay:.36s;background:#fff;box-shadow:0 0 4px #fff,0 0 9px var(--accent,#c77dff)}.gl1-ico i:nth-child(4),.gl1-bar i:nth-child(4){animation-delay:.24s;background:var(--info,#6bb6ff);box-shadow:0 0 4px var(--info,#6bb6ff),0 0 8px var(--info,#6bb6ff)}.gl1-ico i:nth-child(5),.gl1-bar i:nth-child(5){animation-delay:.12s}@keyframes gl1-pulse{0%,100%{transform:scaleY(.35);opacity:.55}50%{transform:scaleY(1);opacity:1}}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gl1-ico"><i></i><i></i><i></i><i></i><i></i></span></span></div>
+  <div class="wb"><span class="gl1-bar"><i></i><i></i><i></i><i></i><i></i></span><span class="t">tocando</span></div>
+  <div class="lbl">gl-1 · Neon Bars</div>
+</div>
+<div class="card"><style>.gl2-ico{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}.gl2-bar{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px}.gl2-ico span,.gl2-bar span{display:block;border-radius:50%;background:var(--accent,#c77dff);box-shadow:0 0 6px var(--accent,#c77dff),0 0 14px var(--accent,#c77dff);animation:gl2-orb 1.6s ease-in-out infinite}.gl2-ico span{width:11px;height:11px}.gl2-bar span{width:8px;height:8px}@keyframes gl2-orb{0%,100%{transform:scale(.6);background:var(--accent,#c77dff);box-shadow:0 0 4px var(--accent,#c77dff),0 0 8px var(--accent,#c77dff)}50%{transform:scale(1);background:var(--info,#6bb6ff);box-shadow:0 0 8px var(--info,#6bb6ff),0 0 18px var(--info,#6bb6ff),0 0 26px #fff}}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gl2-ico"><span></span></span></span></div>
+  <div class="wb"><span class="gl2-bar"><span></span></span><span class="t">tocando</span></div>
+  <div class="lbl">gl-2 · Pulse Orb</div>
+</div>
+<div class="card"><style>.gl3-ico{position:relative;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}.gl3-bar{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px}.gl3-ico b,.gl3-bar b{position:absolute;border-radius:50%;border:2px solid var(--accent,#c77dff);box-shadow:0 0 6px var(--accent,#c77dff);animation:gl3-ring 1.8s ease-in-out infinite}.gl3-ico b{width:6px;height:6px}.gl3-bar b{width:5px;height:5px}.gl3-ico b:nth-child(2),.gl3-bar b:nth-child(2){animation-delay:.6s;border-color:var(--info,#6bb6ff);box-shadow:0 0 6px var(--info,#6bb6ff)}.gl3-ico b:nth-child(3),.gl3-bar b:nth-child(3){animation-delay:1.2s;border-color:#fff;box-shadow:0 0 6px #fff}@keyframes gl3-ring{0%{transform:scale(.4);opacity:1}70%{opacity:.5}100%{transform:scale(3.4);opacity:0}}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gl3-ico"><b></b><b></b><b></b></span></span></div>
+  <div class="wb"><span class="gl3-bar"><b></b><b></b><b></b></span><span class="t">tocando</span></div>
+  <div class="lbl">gl-3 · Sonar Ripple</div>
+</div>
+<div class="card"><style>.gl4-ico{display:inline-flex;align-items:center;justify-content:center;height:22px}.gl4-bar{display:inline-flex;align-items:center;justify-content:center;height:16px}.gl4-ico svg,.gl4-bar svg{display:block;overflow:visible}.gl4-ico svg{width:22px;height:14px}.gl4-bar svg{width:20px;height:11px}.gl4-ico path,.gl4-bar path{fill:none;stroke:var(--accent,#c77dff);stroke-width:2;stroke-linecap:round;filter:drop-shadow(0 0 3px var(--accent,#c77dff)) drop-shadow(0 0 6px var(--info,#6bb6ff));stroke-dasharray:6 60;animation:gl4-wave 1.4s ease-in-out infinite}@keyframes gl4-wave{0%{stroke-dashoffset:66;stroke:var(--accent,#c77dff)}50%{stroke:var(--info,#6bb6ff)}100%{stroke-dashoffset:0;stroke:#fff}}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gl4-ico"><svg viewBox="0 0 40 20"><path d="M1 10 Q6 1 11 10 T21 10 T31 10 T41 10"/></svg></span></span></div>
+  <div class="wb"><span class="gl4-bar"><svg viewBox="0 0 40 20"><path d="M1 10 Q6 1 11 10 T21 10 T31 10 T41 10"/></svg></span><span class="t">tocando</span></div>
+  <div class="lbl">gl-4 · Glow Wave</div>
+</div>
+<div class="card"><style>.gl5-ico{display:inline-flex;align-items:flex-end;gap:2px;height:22px;justify-content:center}.gl5-bar{display:inline-flex;align-items:flex-end;gap:2px;height:16px;justify-content:center}.gl5-ico u,.gl5-bar u{display:block;width:3px;border-radius:2px;background:linear-gradient(var(--info,#6bb6ff),var(--accent,#c77dff));box-shadow:0 0 5px var(--accent,#c77dff);animation:gl5-eq .9s ease-in-out infinite}.gl5-ico u{height:90%}.gl5-bar u{height:90%}.gl5-ico u:nth-child(2),.gl5-bar u:nth-child(2){animation-delay:.3s}.gl5-ico u:nth-child(3),.gl5-bar u:nth-child(3){animation-delay:.15s}.gl5-ico u:nth-child(4),.gl5-bar u:nth-child(4){animation-delay:.45s}@keyframes gl5-eq{0%,100%{transform:scaleY(.25);filter:brightness(.7)}50%{transform:scaleY(1);filter:brightness(1.4)}}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gl5-ico"><u></u><u></u><u></u><u></u></span></span></div>
+  <div class="wb"><span class="gl5-bar"><u></u><u></u><u></u><u></u></span><span class="t">tocando</span></div>
+  <div class="lbl">gl-5 · Gradient EQ</div>
+</div>
+<div class="card"><style>.gl6-ico{position:relative;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px}.gl6-bar{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px}.gl6-ico s,.gl6-bar s{display:block;border-radius:50%;background:#fff;animation:gl6-breathe 2s ease-in-out infinite}.gl6-ico s{width:8px;height:8px}.gl6-bar s{width:6px;height:6px}@keyframes gl6-breathe{0%,100%{transform:scale(.5);box-shadow:0 0 4px var(--accent,#c77dff),0 0 8px var(--accent,#c77dff)}50%{transform:scale(1);box-shadow:0 0 8px var(--info,#6bb6ff),0 0 18px var(--info,#6bb6ff),0 0 30px var(--accent,#c77dff),0 0 42px var(--accent,#c77dff)}}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gl6-ico"><s></s></span></span></div>
+  <div class="wb"><span class="gl6-bar"><s></s></span><span class="t">tocando</span></div>
+  <div class="lbl">gl-6 · Breathing Halo</div>
+</div>
+<div class="card"><style>.card{background:#16121c;border-radius:10px;padding:14px;font-family:-apple-system,sans-serif;color:#e7def5;width:170px}.card .mb{display:flex;align-items:center;gap:8px;background:#0d0a12;border-radius:6px;padding:4px 8px;margin-bottom:10px}.card .clk{font-size:12px;color:#a99cc0;font-variant-numeric:tabular-nums}.card .ico{margin-left:auto;display:inline-flex}.card .wb{display:flex;align-items:center;gap:8px;margin-bottom:10px}.card .t{font-size:12px;color:#a99cc0}.card .lbl{font-size:11px;color:#8a7da3;border-top:1px solid #2a2336;padding-top:8px}
+.rg1-ico{position:relative;width:22px;height:22px}
+.rg1-ico i{position:absolute;inset:0;margin:auto;width:6px;height:6px;border-radius:50%;background:var(--accent,#c77dff);box-shadow:0 0 4px var(--accent,#c77dff)}
+.rg1-ico b{position:absolute;inset:0;margin:auto;width:6px;height:6px;border-radius:50%;border:1.5px solid var(--info,#6bb6ff);opacity:0;animation:rg1pulse 1.8s ease-in-out infinite}
+.rg1-ico b:nth-child(2){animation-delay:.6s}
+.rg1-ico b:nth-child(3){animation-delay:1.2s}
+@keyframes rg1pulse{0%{transform:scale(1);opacity:.9}70%{opacity:0}100%{transform:scale(3.4);opacity:0}}
+.rg1-bar{position:relative;width:16px;height:16px}
+.rg1-bar i{position:absolute;inset:0;margin:auto;width:4px;height:4px;border-radius:50%;background:#fff}
+.rg1-bar b{position:absolute;inset:0;margin:auto;width:4px;height:4px;border-radius:50%;border:1.5px solid var(--accent,#c77dff);opacity:0;animation:rg1pulse 1.8s ease-in-out infinite}
+.rg1-bar b:nth-child(2){animation-delay:.9s}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rg1-ico"><b></b><b></b><b></b><i></i></span></span></div>
+  <div class="wb"><span class="rg1-bar"><b></b><b></b><i></i></span><span class="t">tocando</span></div>
+  <div class="lbl">rg-1 · Sonar Pulse</div>
+</div>
+<div class="card"><style>
+.rg2-ico{position:relative;width:22px;height:22px}
+.rg2-ico s{position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--accent,#c77dff);opacity:0;animation:rg2rip 2.4s cubic-bezier(.4,0,.2,1) infinite}
+.rg2-ico s:nth-child(2){border-color:var(--info,#6bb6ff);animation-delay:.8s}
+.rg2-ico s:nth-child(3){border-color:#fff;animation-delay:1.6s}
+@keyframes rg2rip{0%{transform:scale(.2);opacity:1}100%{transform:scale(1);opacity:0}}
+.rg2-bar{position:relative;width:16px;height:16px}
+.rg2-bar s{position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--accent,#c77dff);opacity:0;animation:rg2rip 2.4s cubic-bezier(.4,0,.2,1) infinite}
+.rg2-bar s:nth-child(2){border-color:var(--info,#6bb6ff);animation-delay:1.2s}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rg2-ico"><s></s><s></s><s></s></span></span></div>
+  <div class="wb"><span class="rg2-bar"><s></s><s></s></span><span class="t">tocando</span></div>
+  <div class="lbl">rg-2 · Ripple Echo</div>
+</div>
+<div class="card"><style>
+.rg3-ico{position:relative;width:22px;height:22px}
+.rg3-ico u{position:absolute;inset:0;margin:auto;width:18px;height:18px;border-radius:50%;border:2px solid transparent;border-top-color:var(--accent,#c77dff);border-right-color:var(--info,#6bb6ff);animation:rg3spin 1.4s ease-in-out infinite,rg3breath 2.8s ease-in-out infinite}
+@keyframes rg3spin{to{transform:rotate(360deg)}}
+@keyframes rg3breath{0%,100%{box-shadow:0 0 2px var(--accent,#c77dff)}50%{box-shadow:0 0 8px var(--info,#6bb6ff)}}
+.rg3-bar{position:relative;width:16px;height:16px}
+.rg3-bar u{position:absolute;inset:0;margin:auto;width:13px;height:13px;border-radius:50%;border:2px solid transparent;border-top-color:var(--accent,#c77dff);border-right-color:var(--info,#6bb6ff);animation:rg3spin 1.4s ease-in-out infinite}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rg3-ico"><u></u></span></span></div>
+  <div class="wb"><span class="rg3-bar"><u></u></span><span class="t">tocando</span></div>
+  <div class="lbl">rg-3 · Orbit Ring</div>
+</div>
+<div class="card"><style>
+.rg4-ico{position:relative;width:22px;height:22px;display:flex;align-items:center;justify-content:center}
+.rg4-ico c{position:absolute;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--accent,#c77dff);animation:rg4concentric 2s ease-in-out infinite}
+.rg4-ico c:nth-child(2){border-color:var(--info,#6bb6ff);animation-delay:.5s}
+.rg4-ico c:nth-child(3){border-color:#fff;animation-delay:1s}
+@keyframes rg4concentric{0%,100%{transform:scale(.6);opacity:.4}50%{transform:scale(2.4);opacity:1}}
+.rg4-bar{position:relative;width:16px;height:16px;display:flex;align-items:center;justify-content:center}
+.rg4-bar c{position:absolute;width:6px;height:6px;border-radius:50%;border:1.5px solid var(--accent,#c77dff);animation:rg4concentric 2s ease-in-out infinite}
+.rg4-bar c:nth-child(2){border-color:var(--info,#6bb6ff);animation-delay:.7s}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rg4-ico"><c></c><c></c><c></c></span></span></div>
+  <div class="wb"><span class="rg4-bar"><c></c><c></c></span><span class="t">tocando</span></div>
+  <div class="lbl">rg-4 · Concentric Breathe</div>
+</div>
+<div class="card"><style>
+.rg5-ico{position:relative;width:22px;height:22px}
+.rg5-ico r{position:absolute;inset:0;margin:auto;width:20px;height:20px;border-radius:50%;background:conic-gradient(from 0deg,transparent,var(--accent,#c77dff),transparent 40%,var(--info,#6bb6ff),transparent 70%);animation:rg5sweep 1.6s linear infinite;-webkit-mask:radial-gradient(circle,transparent 5px,#000 6px)}
+@keyframes rg5sweep{to{transform:rotate(360deg)}}
+.rg5-bar{position:relative;width:16px;height:16px}
+.rg5-bar r{position:absolute;inset:0;margin:auto;width:14px;height:14px;border-radius:50%;background:conic-gradient(from 0deg,transparent,var(--accent,#c77dff),transparent 45%,var(--info,#6bb6ff),transparent 75%);animation:rg5sweep 1.6s linear infinite;-webkit-mask:radial-gradient(circle,transparent 3px,#000 4px)}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rg5-ico"><r></r></span></span></div>
+  <div class="wb"><span class="rg5-bar"><r></r></span><span class="t">tocando</span></div>
+  <div class="lbl">rg-5 · Radar Sweep</div>
+</div>
+<div class="card"><style>
+.rg6-ico{position:relative;width:22px;height:22px}
+.rg6-ico d{position:absolute;inset:0;margin:auto;width:7px;height:7px;border-radius:50%;background:radial-gradient(var(--info,#6bb6ff),var(--accent,#c77dff));animation:rg6core 1.5s ease-in-out infinite}
+.rg6-ico w{position:absolute;inset:0;margin:auto;width:7px;height:7px;border-radius:50%;border:1.5px solid var(--accent,#c77dff);opacity:0;animation:rg6wave 1.5s ease-in-out infinite}
+.rg6-ico w:nth-child(3){border-color:var(--info,#6bb6ff);animation-delay:.5s}
+.rg6-ico w:nth-child(4){border-color:#fff;animation-delay:1s}
+@keyframes rg6core{0%,100%{transform:scale(1);box-shadow:0 0 3px var(--accent,#c77dff)}50%{transform:scale(1.3);box-shadow:0 0 7px var(--info,#6bb6ff)}}
+@keyframes rg6wave{0%{transform:scale(1);opacity:.85}100%{transform:scale(3);opacity:0}}
+.rg6-bar{position:relative;width:16px;height:16px}
+.rg6-bar d{position:absolute;inset:0;margin:auto;width:5px;height:5px;border-radius:50%;background:radial-gradient(var(--info,#6bb6ff),var(--accent,#c77dff));animation:rg6core 1.5s ease-in-out infinite}
+.rg6-bar w{position:absolute;inset:0;margin:auto;width:5px;height:5px;border-radius:50%;border:1.5px solid var(--accent,#c77dff);opacity:0;animation:rg6wave 1.5s ease-in-out infinite}
+.rg6-bar w:nth-child(3){border-color:var(--info,#6bb6ff);animation-delay:.75s}</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rg6-ico"><d></d><w></w><w></w><w></w></span></span></div>
+  <div class="wb"><span class="rg6-bar"><d></d><w></w><w></w></span><span class="t">tocando</span></div>
+  <div class="lbl">rg-6 · Core Emit</div>
+</div>
+<div class="card"><style>
+.bl1-stage{position:relative;display:inline-flex;align-items:center;justify-content:center}
+.bl1-stage svg{display:block;overflow:visible}
+.bl1-blob{transform-origin:center;animation:bl1-pulse 1.6s ease-in-out infinite}
+.bl1-blob2{transform-origin:center;animation:bl1-pulse 1.6s ease-in-out infinite .35s}
+@keyframes bl1-pulse{0%,100%{transform:scale(.62);opacity:.55}50%{transform:scale(1);opacity:1}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="bl1-stage" style="width:22px;height:22px"><svg viewBox="0 0 22 22" width="22" height="22"><circle class="bl1-blob2" cx="11" cy="11" r="9" fill="var(--info,#6bb6ff)" opacity=".4"/><circle class="bl1-blob" cx="11" cy="11" r="6" fill="var(--accent,#c77dff)"/></svg></span></span></div>
+  <div class="wb"><span class="bl1-stage" style="width:16px;height:16px"><svg viewBox="0 0 22 22" width="16" height="16"><circle class="bl1-blob2" cx="11" cy="11" r="9" fill="var(--info,#6bb6ff)" opacity=".4"/><circle class="bl1-blob" cx="11" cy="11" r="6" fill="var(--accent,#c77dff)"/></svg></span><span class="t">tocando</span></div>
+  <div class="lbl">bl-1 · Pulse Orb</div>
+</div>
+
+<div class="card"><style>
+.bl2-stage{position:relative;display:inline-block}
+.bl2-dot{position:absolute;top:50%;left:50%;width:30%;height:30%;margin:-15% 0 0 -15%;border-radius:50%}
+.bl2-a{background:var(--accent,#c77dff);animation:bl2-orb 1.4s ease-in-out infinite}
+.bl2-b{background:var(--info,#6bb6ff);animation:bl2-orb 1.4s ease-in-out infinite -.47s}
+.bl2-c{background:#fff;animation:bl2-orb 1.4s ease-in-out infinite -.93s}
+@keyframes bl2-orb{0%{transform:rotate(0) translateX(120%) scale(1)}50%{transform:rotate(180deg) translateX(120%) scale(.6)}100%{transform:rotate(360deg) translateX(120%) scale(1)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="bl2-stage" style="width:22px;height:22px"><span class="bl2-dot bl2-a"></span><span class="bl2-dot bl2-b"></span><span class="bl2-dot bl2-c"></span></span></span></div>
+  <div class="wb"><span class="bl2-stage" style="width:16px;height:16px"><span class="bl2-dot bl2-a"></span><span class="bl2-dot bl2-b"></span><span class="bl2-dot bl2-c"></span></span><span class="t">tocando</span></div>
+  <div class="lbl">bl-2 · Orbit Trio</div>
+</div>
+
+<div class="card"><style>
+.bl3-stage{position:relative;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:radial-gradient(circle at 50% 50%,var(--accent,#c77dff) 0%,var(--info,#6bb6ff) 70%);animation:bl3-morph 2.2s ease-in-out infinite}
+@keyframes bl3-morph{0%,100%{border-radius:50% 50% 50% 50%/55% 55% 45% 45%;transform:rotate(0) scale(.9)}33%{border-radius:60% 40% 55% 45%/45% 55% 45% 55%;transform:rotate(120deg) scale(1)}66%{border-radius:40% 60% 45% 55%/55% 45% 60% 40%;transform:rotate(240deg) scale(.95)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="bl3-stage" style="width:22px;height:22px"></span></span></div>
+  <div class="wb"><span class="bl3-stage" style="width:16px;height:16px"></span><span class="t">tocando</span></div>
+  <div class="lbl">bl-3 · Morph Drop</div>
+</div>
+
+<div class="card"><style>
+.bl4-stage{position:relative;display:inline-block}
+.bl4-p{position:absolute;left:50%;top:50%;width:18%;height:18%;margin:-9% 0 0 -9%;border-radius:50%;background:#fff}
+.bl4-p1{animation:bl4-em 1.5s ease-in-out infinite}
+.bl4-p2{background:var(--accent,#c77dff);animation:bl4-em 1.5s ease-in-out infinite -.5s}
+.bl4-p3{background:var(--info,#6bb6ff);animation:bl4-em 1.5s ease-in-out infinite -1s}
+@keyframes bl4-em{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(0,-120%) scale(.2);opacity:0}}
+.bl4-core{position:absolute;left:50%;top:55%;width:46%;height:46%;margin:-23% 0 0 -23%;border-radius:50%;background:radial-gradient(circle,var(--accent,#c77dff),var(--info,#6bb6ff));animation:bl4-breathe 1.5s ease-in-out infinite}
+@keyframes bl4-breathe{0%,100%{transform:scale(.85)}50%{transform:scale(1.05)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="bl4-stage" style="width:22px;height:22px"><span class="bl4-core"></span><span class="bl4-p bl4-p1"></span><span class="bl4-p bl4-p2"></span><span class="bl4-p bl4-p3"></span></span></span></div>
+  <div class="wb"><span class="bl4-stage" style="width:16px;height:16px"><span class="bl4-core"></span><span class="bl4-p bl4-p1"></span><span class="bl4-p bl4-p2"></span><span class="bl4-p bl4-p3"></span></span><span class="t">tocando</span></div>
+  <div class="lbl">bl-4 · Emitter</div>
+</div>
+
+<div class="card"><style>
+.bl5-stage{position:relative;display:inline-flex;align-items:center;justify-content:center}
+.bl5-ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--info,#6bb6ff);animation:bl5-ripple 1.8s ease-out infinite}
+.bl5-ring2{animation-delay:.6s;border-color:var(--accent,#c77dff)}
+.bl5-ring3{animation-delay:1.2s}
+.bl5-core{width:38%;height:38%;border-radius:50%;background:var(--accent,#c77dff);box-shadow:0 0 4px var(--accent,#c77dff);animation:bl5-glow 1.8s ease-in-out infinite}
+@keyframes bl5-ripple{0%{transform:scale(.35);opacity:.9}100%{transform:scale(1);opacity:0}}
+@keyframes bl5-glow{0%,100%{transform:scale(.8)}50%{transform:scale(1)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="bl5-stage" style="width:22px;height:22px"><span class="bl5-ring"></span><span class="bl5-ring bl5-ring2"></span><span class="bl5-ring bl5-ring3"></span><span class="bl5-core"></span></span></span></div>
+  <div class="wb"><span class="bl5-stage" style="width:16px;height:16px"><span class="bl5-ring"></span><span class="bl5-ring bl5-ring2"></span><span class="bl5-ring bl5-ring3"></span><span class="bl5-core"></span></span><span class="t">tocando</span></div>
+  <div class="lbl">bl-5 · Ripple Core</div>
+</div>
+
+<div class="card"><style>
+.bl6-stage{position:relative;display:inline-block;filter:blur(.4px)}
+.bl6-m{position:absolute;left:50%;top:50%;border-radius:50%;mix-blend-mode:screen}
+.bl6-m1{width:55%;height:55%;margin:-27% 0 0 -27%;background:var(--accent,#c77dff);animation:bl6-d1 2.4s ease-in-out infinite}
+.bl6-m2{width:50%;height:50%;margin:-25% 0 0 -25%;background:var(--info,#6bb6ff);animation:bl6-d2 2.4s ease-in-out infinite}
+.bl6-m3{width:32%;height:32%;margin:-16% 0 0 -16%;background:#fff;animation:bl6-d3 2.4s ease-in-out infinite}
+@keyframes bl6-d1{0%,100%{transform:translate(-22%,-14%) scale(.9)}50%{transform:translate(20%,16%) scale(1.05)}}
+@keyframes bl6-d2{0%,100%{transform:translate(24%,18%) scale(1)}50%{transform:translate(-18%,-20%) scale(.85)}}
+@keyframes bl6-d3{0%,100%{transform:translate(8%,-12%) scale(.7)}50%{transform:translate(-10%,14%) scale(1)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="bl6-stage" style="width:22px;height:22px"><span class="bl6-m bl6-m1"></span><span class="bl6-m bl6-m2"></span><span class="bl6-m bl6-m3"></span></span></span></div>
+  <div class="wb"><span class="bl6-stage" style="width:16px;height:16px"><span class="bl6-m bl6-m1"></span><span class="bl6-m bl6-m2"></span><span class="bl6-m bl6-m3"></span></span><span class="t">tocando</span></div>
+  <div class="lbl">bl-6 · Lava Merge</div>
+</div>
+<div class="card"><style>
+.rt1-wrap{display:inline-flex;align-items:center;justify-content:center;font-family:"Courier New",monospace}
+.rt1-ico{font-size:18px;line-height:1;color:var(--accent,#c77dff);text-shadow:0 0 4px var(--accent,#c77dff);animation:rt1-blip .9s ease-in-out infinite}
+.rt1-ico::after{content:"\2588"}
+.rt1-bar{display:inline-flex;align-items:center}
+.rt1-bar i{font-style:normal;font-family:"Courier New",monospace;font-size:14px;line-height:16px;color:var(--info,#6bb6ff);text-shadow:0 0 3px var(--info,#6bb6ff)}
+.rt1-bar i::after{content:"\2588\2588\2588";display:inline-block;animation:rt1-scan 1.1s ease-in-out infinite}
+@keyframes rt1-blip{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes rt1-scan{0%,100%{clip-path:inset(0 66% 0 0);opacity:.6}50%{clip-path:inset(0 0 0 0);opacity:1}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rt1-wrap"><span class="rt1-ico"></span></span></span></div>
+  <div class="wb"><span class="rt1-bar"><i></i></span><span class="t">tocando</span></div>
+  <div class="lbl">rt-1 · Cursor Blip</div>
+</div>
+<div class="card"><style>
+.rt2-grid{display:inline-grid;grid-template-columns:repeat(3,1fr);gap:1px;width:18px;height:18px}
+.rt2-grid b,.rt2-bar b{background:var(--accent,#c77dff);box-shadow:0 0 3px var(--accent,#c77dff);animation:rt2-pix 1s ease-in-out infinite}
+.rt2-grid b:nth-child(2),.rt2-bar b:nth-child(2){animation-delay:.12s;background:var(--info,#6bb6ff);box-shadow:0 0 3px var(--info,#6bb6ff)}
+.rt2-grid b:nth-child(3),.rt2-bar b:nth-child(3){animation-delay:.24s}
+.rt2-grid b:nth-child(4),.rt2-bar b:nth-child(4){animation-delay:.36s;background:var(--info,#6bb6ff);box-shadow:0 0 3px var(--info,#6bb6ff)}
+.rt2-grid b:nth-child(5),.rt2-bar b:nth-child(5){animation-delay:.48s;background:#fff;box-shadow:0 0 3px #fff}
+.rt2-grid b:nth-child(6),.rt2-bar b:nth-child(6){animation-delay:.6s}
+.rt2-grid b:nth-child(7),.rt2-bar b:nth-child(7){animation-delay:.72s;background:var(--info,#6bb6ff)}
+.rt2-grid b:nth-child(8),.rt2-bar b:nth-child(8){animation-delay:.84s;background:#fff;box-shadow:0 0 3px #fff}
+.rt2-grid b:nth-child(9),.rt2-bar b:nth-child(9){animation-delay:.96s}
+.rt2-bar{display:inline-flex;gap:2px;height:16px;align-items:center}
+.rt2-bar b{width:4px;height:4px;border-radius:1px}
+@keyframes rt2-pix{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rt2-grid"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></span></div>
+  <div class="wb"><span class="rt2-bar"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span><span class="t">tocando</span></div>
+  <div class="lbl">rt-2 · Pixel Matrix</div>
+</div>
+<div class="card"><style>
+.rt3-osc{display:inline-block;width:20px;height:20px;overflow:hidden;font-family:monospace;font-size:11px;line-height:20px;color:var(--info,#6bb6ff);text-shadow:0 0 4px var(--info,#6bb6ff);white-space:nowrap}
+.rt3-osc::after{content:"\2227\2228\2227\2228\2227\2228\2227\2228";display:inline-block;animation:rt3-roll 1.2s linear infinite}
+.rt3-line{display:inline-block;width:60px;height:16px;overflow:hidden;font-family:monospace;font-size:14px;line-height:16px;letter-spacing:-1px;color:var(--accent,#c77dff);text-shadow:0 0 4px var(--accent,#c77dff);white-space:nowrap;vertical-align:middle}
+.rt3-line::after{content:"~^~^~^~^~^~^~^~^~^~^";display:inline-block;animation:rt3-roll 1s linear infinite}
+@keyframes rt3-roll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rt3-osc"></span></span></div>
+  <div class="wb"><span class="rt3-line"></span><span class="t">tocando</span></div>
+  <div class="lbl">rt-3 · ASCII Wave</div>
+</div>
+<div class="card"><style>
+.rt4-vu{display:inline-flex;gap:2px;align-items:flex-end;height:18px}
+.rt4-vu s,.rt4-bvu s{display:block;width:3px;background:linear-gradient(to top,var(--info,#6bb6ff),var(--accent,#c77dff));box-shadow:0 0 3px var(--accent,#c77dff);transform-origin:bottom;animation:rt4-vu 0.8s ease-in-out infinite}
+.rt4-vu s{height:18px}
+.rt4-vu s:nth-child(2),.rt4-bvu s:nth-child(2){animation-delay:.15s}
+.rt4-vu s:nth-child(3),.rt4-bvu s:nth-child(3){animation-delay:.3s}
+.rt4-vu s:nth-child(4),.rt4-bvu s:nth-child(4){animation-delay:.45s}
+.rt4-bvu{display:inline-flex;gap:2px;align-items:flex-end;height:16px}
+.rt4-bvu s{width:3px;height:16px}
+@keyframes rt4-vu{0%,100%{transform:scaleY(.2)}50%{transform:scaleY(1)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rt4-vu"><s></s><s></s><s></s><s></s></span></span></div>
+  <div class="wb"><span class="rt4-bvu"><s></s><s></s><s></s><s></s></span><span class="t">tocando</span></div>
+  <div class="lbl">rt-4 · VU Meter</div>
+</div>
+<div class="card"><style>
+.rt5-crt{position:relative;display:inline-block;width:20px;height:20px;border-radius:3px;background:rgba(107,182,255,.08);overflow:hidden}
+.rt5-crt::before{content:"";position:absolute;left:2px;right:2px;top:50%;height:2px;background:var(--accent,#c77dff);box-shadow:0 0 6px var(--accent,#c77dff);animation:rt5-pulse 1s ease-in-out infinite}
+.rt5-crt::after{content:"";position:absolute;left:0;right:0;top:0;height:100%;background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(0,0,0,.4) 3px);animation:rt5-roll 4s linear infinite}
+.rt5-bcrt{position:relative;display:inline-block;width:48px;height:16px;border-radius:2px;background:rgba(107,182,255,.08);overflow:hidden;vertical-align:middle}
+.rt5-bcrt::before{content:"";position:absolute;left:2px;right:2px;top:50%;height:2px;background:var(--info,#6bb6ff);box-shadow:0 0 6px var(--info,#6bb6ff);animation:rt5-pulse 1s ease-in-out infinite}
+.rt5-bcrt::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(0,0,0,.35) 3px);animation:rt5-roll 4s linear infinite}
+@keyframes rt5-pulse{0%,100%{transform:translateY(-5px) scaleX(.4);opacity:.5}50%{transform:translateY(0) scaleX(1);opacity:1}}
+@keyframes rt5-roll{0%{transform:translateY(0)}100%{transform:translateY(8px)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rt5-crt"></span></span></div>
+  <div class="wb"><span class="rt5-bcrt"></span><span class="t">tocando</span></div>
+  <div class="lbl">rt-5 · CRT Scanline</div>
+</div>
+<div class="card"><style>
+.rt6-led{display:inline-flex;gap:2px;align-items:center;height:18px}
+.rt6-led u,.rt6-bled u{display:block;width:5px;height:5px;border-radius:50%;background:#243;box-shadow:inset 0 0 1px #000}
+.rt6-led u.on,.rt6-bled u.on{background:var(--accent,#c77dff);box-shadow:0 0 4px var(--accent,#c77dff)}
+.rt6-led u:nth-child(1){animation:rt6-l1 1.1s steps(1) infinite}
+.rt6-led u:nth-child(2),.rt6-bled u:nth-child(2){animation:rt6-l2 1.1s steps(1) infinite}
+.rt6-led u:nth-child(3),.rt6-bled u:nth-child(3){animation:rt6-l3 1.1s steps(1) infinite}
+.rt6-led u:nth-child(4),.rt6-bled u:nth-child(4){animation:rt6-l4 1.1s steps(1) infinite}
+.rt6-led u:nth-child(1){animation-name:rt6-l1}
+.rt6-bled u:nth-child(1){animation:rt6-l1 1.1s steps(1) infinite}
+.rt6-bled{display:inline-flex;gap:2px;align-items:center;height:16px}
+@keyframes rt6-l1{0%,100%{background:var(--info,#6bb6ff);box-shadow:0 0 4px var(--info,#6bb6ff)}50%{background:#243;box-shadow:inset 0 0 1px #000}}
+@keyframes rt6-l2{0%,49%{background:#243;box-shadow:inset 0 0 1px #000}50%,100%{background:var(--accent,#c77dff);box-shadow:0 0 4px var(--accent,#c77dff)}}
+@keyframes rt6-l3{0%,24%,75%,100%{background:#243;box-shadow:inset 0 0 1px #000}25%,74%{background:#fff;box-shadow:0 0 4px #fff}}
+@keyframes rt6-l4{0%,100%{background:var(--accent,#c77dff);box-shadow:0 0 4px var(--accent,#c77dff)}50%{background:#243;box-shadow:inset 0 0 1px #000}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="rt6-led"><u></u><u></u><u></u><u></u></span></span></div>
+  <div class="wb"><span class="rt6-bled"><u></u><u></u><u></u><u></u></span><span class="t">tocando</span></div>
+  <div class="lbl">rt-6 · LED Bargraph</div>
+</div>
+<div class="card"><style>
+.mn1-wrap{display:inline-flex;align-items:center;justify-content:center;gap:.18em}
+.mn1-d{width:.28em;height:.28em;border-radius:50%;background:var(--accent,#c77dff);animation:mn1-p 1.1s ease-in-out infinite}
+.mn1-d:nth-child(2){background:#fff;animation-delay:.18s}
+.mn1-d:nth-child(3){background:var(--info,#6bb6ff);animation-delay:.36s}
+@keyframes mn1-p{0%,100%{transform:scale(.55);opacity:.45}50%{transform:scale(1);opacity:1}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="mn1-wrap" style="font-size:22px"><i class="mn1-d"></i><i class="mn1-d"></i><i class="mn1-d"></i></span></span></div>
+  <div class="wb"><span class="mn1-wrap" style="font-size:16px"><i class="mn1-d"></i><i class="mn1-d"></i><i class="mn1-d"></i></span><span class="t">tocando</span></div>
+  <div class="lbl">mn-1 · Pulse Trio</div>
+</div>
+<div class="card"><style>
+.mn2-wrap{display:inline-flex;align-items:center;justify-content:center}
+.mn2-d{position:relative;width:.5em;height:.5em;border-radius:50%;background:var(--accent,#c77dff)}
+.mn2-d::after{content:"";position:absolute;inset:0;border-radius:50%;border:.08em solid var(--info,#6bb6ff);animation:mn2-r 1.4s ease-out infinite}
+@keyframes mn2-r{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.6);opacity:0}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="mn2-wrap" style="font-size:22px"><i class="mn2-d"></i></span></span></div>
+  <div class="wb"><span class="mn2-wrap" style="font-size:16px"><i class="mn2-d"></i></span><span class="t">tocando</span></div>
+  <div class="lbl">mn-2 · Ripple Dot</div>
+</div>
+<div class="card"><style>
+.mn3-wrap{display:inline-flex;align-items:center;justify-content:center;gap:.16em}
+.mn3-d{width:.26em;height:.26em;border-radius:50%;background:#fff;animation:mn3-b 1.2s ease-in-out infinite}
+.mn3-d:nth-child(1){background:var(--accent,#c77dff)}
+.mn3-d:nth-child(2){animation-delay:.2s}
+.mn3-d:nth-child(3){background:var(--info,#6bb6ff);animation-delay:.4s}
+@keyframes mn3-b{0%,100%{transform:translateY(.18em);opacity:.5}50%{transform:translateY(-.18em);opacity:1}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="mn3-wrap" style="font-size:22px"><i class="mn3-d"></i><i class="mn3-d"></i><i class="mn3-d"></i></span></span></div>
+  <div class="wb"><span class="mn3-wrap" style="font-size:16px"><i class="mn3-d"></i><i class="mn3-d"></i><i class="mn3-d"></i></span><span class="t">tocando</span></div>
+  <div class="lbl">mn-3 · Bounce Dots</div>
+</div>
+<div class="card"><style>
+.mn4-wrap{display:inline-flex;align-items:center;justify-content:center}
+.mn4-d{width:.5em;height:.5em;border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0%,var(--accent,#c77dff) 60%,var(--info,#6bb6ff) 100%);box-shadow:0 0 .3em var(--accent,#c77dff);animation:mn4-g 1.3s ease-in-out infinite}
+@keyframes mn4-g{0%,100%{transform:scale(.7);box-shadow:0 0 .15em var(--accent,#c77dff);opacity:.7}50%{transform:scale(1.05);box-shadow:0 0 .55em var(--info,#6bb6ff);opacity:1}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="mn4-wrap" style="font-size:22px"><i class="mn4-d"></i></span></span></div>
+  <div class="wb"><span class="mn4-wrap" style="font-size:16px"><i class="mn4-d"></i></span><span class="t">tocando</span></div>
+  <div class="lbl">mn-4 · Glow Orb</div>
+</div>
+<div class="card"><style>
+.mn5-wrap{display:inline-flex;align-items:center;justify-content:center;gap:.14em}
+.mn5-d{width:.24em;height:.24em;border-radius:50%;background:var(--info,#6bb6ff);opacity:.35;animation:mn5-c 1.5s ease-in-out infinite}
+.mn5-d:nth-child(1){animation-delay:0s}
+.mn5-d:nth-child(2){background:var(--accent,#c77dff);animation-delay:.25s}
+.mn5-d:nth-child(3){background:#fff;animation-delay:.5s}
+.mn5-d:nth-child(4){background:var(--accent,#c77dff);animation-delay:.75s}
+@keyframes mn5-c{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="mn5-wrap" style="font-size:22px"><i class="mn5-d"></i><i class="mn5-d"></i><i class="mn5-d"></i><i class="mn5-d"></i></span></span></div>
+  <div class="wb"><span class="mn5-wrap" style="font-size:16px"><i class="mn5-d"></i><i class="mn5-d"></i><i class="mn5-d"></i><i class="mn5-d"></i></span><span class="t">tocando</span></div>
+  <div class="lbl">mn-5 · Chase Row</div>
+</div>
+<div class="card"><style>
+.mn6-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em}
+.mn6-d{position:absolute;top:50%;left:50%;width:.22em;height:.22em;margin:-.11em 0 0 -.11em;border-radius:50%;background:var(--accent,#c77dff);animation:mn6-o 1.6s linear infinite}
+.mn6-d:nth-child(2){background:var(--info,#6bb6ff);animation-delay:-.53s}
+.mn6-d:nth-child(3){background:#fff;animation-delay:-1.06s}
+@keyframes mn6-o{0%{transform:rotate(0) translateX(.34em) scale(1)}50%{transform:rotate(180deg) translateX(.34em) scale(.55)}100%{transform:rotate(360deg) translateX(.34em) scale(1)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="mn6-wrap" style="font-size:22px"><i class="mn6-d"></i><i class="mn6-d"></i><i class="mn6-d"></i></span></span></div>
+  <div class="wb"><span class="mn6-wrap" style="font-size:16px"><i class="mn6-d"></i><i class="mn6-d"></i><i class="mn6-d"></i></span><span class="t">tocando</span></div>
+  <div class="lbl">mn-6 · Orbit Dots</div>
+</div>
+<div class="card"><style>
+.gr1-ico{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;vertical-align:middle}
+.gr1-orb{width:18px;height:18px;border-radius:50%;background:conic-gradient(from 0deg,#c77dff,#6bb6ff,#fff,#c77dff);filter:blur(.3px);animation:gr1-spin 2.4s linear infinite,gr1-pulse 1.3s ease-in-out infinite}
+@keyframes gr1-spin{to{transform:rotate(360deg)}}
+@keyframes gr1-pulse{0%,100%{transform:scale(.82);box-shadow:0 0 4px rgba(199,125,255,.5)}50%{transform:scale(1.05);box-shadow:0 0 10px rgba(107,182,255,.85)}}
+.gr1-bar{display:inline-block;width:64px;height:16px;border-radius:8px;background:linear-gradient(90deg,#c77dff,#6bb6ff,#fff,#6bb6ff,#c77dff);background-size:300% 100%;animation:gr1-flow 2.2s ease-in-out infinite;vertical-align:middle}
+@keyframes gr1-flow{0%,100%{background-position:0% 50%;filter:brightness(.9)}50%{background-position:100% 50%;filter:brightness(1.25)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gr1-ico"><span class="gr1-orb"></span></span></span></div>
+  <div class="wb"><span class="gr1-bar"></span><span class="t">tocando</span></div>
+  <div class="lbl">gr-1 · Aurora Orb</div>
+</div>
+<div class="card"><style>
+.gr2-ico{display:inline-flex;align-items:flex-end;gap:2px;width:22px;height:22px;vertical-align:middle;justify-content:center}
+.gr2-ico i{width:3px;border-radius:2px;background:linear-gradient(180deg,#fff,#6bb6ff,#c77dff);background-size:100% 200%;animation:gr2-eq 1s ease-in-out infinite,gr2-shift 3s ease-in-out infinite}
+.gr2-ico i:nth-child(1){animation-delay:0s,0s}
+.gr2-ico i:nth-child(2){animation-delay:.18s,0s}
+.gr2-ico i:nth-child(3){animation-delay:.36s,0s}
+.gr2-ico i:nth-child(4){animation-delay:.12s,0s}
+@keyframes gr2-eq{0%,100%{height:5px}50%{height:18px}}
+@keyframes gr2-shift{0%,100%{background-position:50% 0%}50%{background-position:50% 100%}}
+.gr2-bar{display:inline-flex;align-items:flex-end;gap:3px;height:16px;vertical-align:middle}
+.gr2-bar i{width:4px;border-radius:2px;background:linear-gradient(180deg,#c77dff,#6bb6ff);animation:gr2-eqb 1s ease-in-out infinite}
+.gr2-bar i:nth-child(1){animation-delay:0s}.gr2-bar i:nth-child(2){animation-delay:.15s}.gr2-bar i:nth-child(3){animation-delay:.3s}.gr2-bar i:nth-child(4){animation-delay:.45s}.gr2-bar i:nth-child(5){animation-delay:.2s}
+@keyframes gr2-eqb{0%,100%{height:4px}50%{height:16px}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gr2-ico"><i></i><i></i><i></i><i></i></span></span></div>
+  <div class="wb"><span class="gr2-bar"><i></i><i></i><i></i><i></i><i></i></span><span class="t">tocando</span></div>
+  <div class="lbl">gr-2 · Aurora EQ</div>
+</div>
+<div class="card"><style>
+.gr3-ico{display:inline-block;width:22px;height:22px;border-radius:50%;vertical-align:middle;background:radial-gradient(circle at 50% 50%,#fff 0%,#6bb6ff 35%,#c77dff 70%,transparent 72%);animation:gr3-breathe 1.8s ease-in-out infinite}
+@keyframes gr3-breathe{0%,100%{transform:scale(.7);opacity:.7}50%{transform:scale(1);opacity:1}}
+.gr3-bar{position:relative;display:inline-block;width:60px;height:16px;border-radius:8px;overflow:hidden;background:#1a1024;vertical-align:middle}
+.gr3-bar::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,#c77dff,transparent 45%),radial-gradient(circle at 70% 50%,#6bb6ff,transparent 45%),radial-gradient(circle at 50% 50%,#fff,transparent 30%);animation:gr3-drift 2.6s ease-in-out infinite}
+@keyframes gr3-drift{0%,100%{transform:translateX(-18%) scale(1)}50%{transform:translateX(18%) scale(1.15)}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gr3-ico"></span></span></div>
+  <div class="wb"><span class="gr3-bar"></span><span class="t">tocando</span></div>
+  <div class="lbl">gr-3 · Aurora Breathe</div>
+</div>
+<div class="card"><style>
+.gr4-ico{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;vertical-align:middle;position:relative}
+.gr4-ico span{position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid transparent;border-top-color:#c77dff;border-right-color:#6bb6ff;animation:gr4-rot 1.4s linear infinite}
+.gr4-ico::after{content:"";width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 6px #6bb6ff;animation:gr4-glow 1.2s ease-in-out infinite}
+@keyframes gr4-rot{to{transform:rotate(360deg)}}
+@keyframes gr4-glow{0%,100%{opacity:.6;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.gr4-bar{display:inline-block;width:60px;height:16px;border-radius:8px;background:linear-gradient(120deg,#c77dff 0%,#6bb6ff 25%,#fff 50%,#6bb6ff 75%,#c77dff 100%);background-size:200% 100%;animation:gr4-sweep 1.8s ease-in-out infinite;vertical-align:middle}
+@keyframes gr4-sweep{0%{background-position:200% 50%}100%{background-position:-200% 50%}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gr4-ico"><span></span></span></span></div>
+  <div class="wb"><span class="gr4-bar"></span><span class="t">tocando</span></div>
+  <div class="lbl">gr-4 · Aurora Comet</div>
+</div>
+<div class="card"><style>
+.gr5-ico{display:inline-flex;align-items:center;justify-content:center;gap:2px;width:22px;height:22px;vertical-align:middle}
+.gr5-ico i{width:6px;height:6px;border-radius:50%;background:radial-gradient(circle,#fff,#c77dff);animation:gr5-wave 1.1s ease-in-out infinite}
+.gr5-ico i:nth-child(2){background:radial-gradient(circle,#fff,#6bb6ff);animation-delay:.2s}
+.gr5-ico i:nth-child(3){background:radial-gradient(circle,#fff,#c77dff);animation-delay:.4s}
+@keyframes gr5-wave{0%,100%{transform:translateY(4px) scale(.7);opacity:.6}50%{transform:translateY(-4px) scale(1.1);opacity:1}}
+.gr5-bar{display:inline-flex;align-items:center;gap:3px;height:16px;vertical-align:middle}
+.gr5-bar i{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#c77dff,#6bb6ff);animation:gr5-wave 1.1s ease-in-out infinite}
+.gr5-bar i:nth-child(2){animation-delay:.15s}.gr5-bar i:nth-child(3){animation-delay:.3s}.gr5-bar i:nth-child(4){animation-delay:.45s}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gr5-ico"><i></i><i></i><i></i></span></span></div>
+  <div class="wb"><span class="gr5-bar"><i></i><i></i><i></i><i></i></span><span class="t">tocando</span></div>
+  <div class="lbl">gr-5 · Aurora Dots</div>
+</div>
+<div class="card"><style>
+.gr6-ico{display:inline-block;width:22px;height:22px;border-radius:50%;vertical-align:middle;background:conic-gradient(from 90deg,#c77dff,#6bb6ff,#fff,#6bb6ff,#c77dff);-webkit-mask:radial-gradient(circle,transparent 40%,#000 42%);mask:radial-gradient(circle,transparent 40%,#000 42%);animation:gr6-spin 2s linear infinite,gr6-th 1.4s ease-in-out infinite}
+@keyframes gr6-spin{to{transform:rotate(360deg)}}
+@keyframes gr6-th{0%,100%{filter:brightness(.85) blur(0)}50%{filter:brightness(1.3) blur(.4px)}}
+.gr6-bar{position:relative;display:inline-block;width:60px;height:16px;border-radius:8px;background:#180f22;overflow:hidden;vertical-align:middle}
+.gr6-bar::before{content:"";position:absolute;top:0;bottom:0;width:40%;border-radius:8px;background:linear-gradient(90deg,transparent,#c77dff,#fff,#6bb6ff,transparent);animation:gr6-scan 1.6s ease-in-out infinite}
+@keyframes gr6-scan{0%{left:-40%}100%{left:100%}}
+</style>
+  <div class="mb"><span class="clk">14:32</span><span class="ico"><span class="gr6-ico"></span></span></div>
+  <div class="wb"><span class="gr6-bar"></span><span class="t">tocando</span></div>
+  <div class="lbl">gr-6 · Aurora Ring Scan</div>
+</div>
+</div></body></html>

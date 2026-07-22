@@ -1,0 +1,21 @@
+# ── Secrets ── never commit ──
+.env
+.env.*
+!.env.example
+
+# ── Dependencies ──
+node_modules/
+
+# ── Runtime state ──
+/tmp/
+*.mp3
+config/work-config.json
+
+# ── OS ──
+.DS_Store
+
+# bun compile temporários
+*.bun-build
+
+# Pages docs bundled at deploy time
+site/docs-src/

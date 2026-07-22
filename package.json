@@ -1,0 +1,21 @@
+{
+  "name": "yass",
+  "version": "0.1.0",
+  "description": "Your AI Speaking System: gives your coding agents a voice",
+  "author": "Pedro Escobar <ec.pedroescobar@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/pedruino/yass",
+  "repository": { "type": "git", "url": "https://github.com/pedruino/yass.git" },
+  "type": "commonjs",
+  "main": "index.js",
+  "bin": { "yass": "yass-daemon.js" },
+  "scripts": {
+    "start": "node yass-daemon.js",
+    "speak": "node speak-cli.js",
+    "test": "node --test \"**/*.test.js\""
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@msgpack/msgpack": "^3.0.0"
+  }
+}

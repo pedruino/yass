@@ -1,0 +1,40 @@
+name: pages
+
+# Deploys the landing page in site/ to GitHub Pages.
+# Requires: repo Settings → Pages → Source = "GitHub Actions".
+
+on:
+  push:
+    branches: [main, feat/cross-platform]
+    paths: ['site/**', 'docs/**', 'README.md', 'CONTRIBUTING.md', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bundle project docs into the site
+        run: |
+          mkdir -p site/docs-src
+          cp README.md site/docs-src/readme.md
+          cp CONTRIBUTING.md site/docs-src/contributing.md
+          cp docs/waveform-spec.md docs/tauri-spike.md site/docs-src/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4

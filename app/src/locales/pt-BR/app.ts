@@ -1,0 +1,103 @@
+export const app: Record<string, string> = {
+  // Widget banners
+  "app.disconnectedBanner": "Desconectado do daemon. Reconectando…",
+  "app.mutedBanner": "Som silenciado. Clique para reativar a voz",
+  "app.unlockBanner": "Clique para ativar o som",
+
+  // Header
+  "app.connHintOnline": "Conectado ao YASS. Narrações chegam em tempo real.",
+  "app.connHintOffline": "Desconectado do YASS. Tentando reconectar.",
+  "app.connStatusOnline": "Conectado ao daemon",
+  "app.connStatusOffline": "Desconectado do daemon",
+  "app.brandHint": "Y.A.S.S.: Your AI Speaking System. Dá voz aos seus agentes de código.",
+  "app.subtitle": "Your AI Speaking System",
+  "app.queuedHintSingular": "{n} fala aguardando para tocar (gerando ou na fila).",
+  "app.queuedHintPlural": "{n} falas aguardando para tocar (gerando ou na fila).",
+  "app.queuedAria": "{n} a falar",
+  "app.muteHintUnmute": "Reativar o som das narrações.",
+  "app.muteHintMute": "Silenciar as narrações (as falas continuam sendo geradas e ficam na fila).",
+  "app.muteAriaUnmute": "Reativar som",
+  "app.muteAriaMute": "Silenciar",
+
+  // NavRail
+  "app.navQueue": "Fila",
+  "app.navSpeak": "Falar por mim",
+  "app.navStats": "Estatísticas",
+  "app.navPronunciation": "Pronúncia",
+  "app.navSettings": "Ajustes",
+  "app.navAriaLabel": "Navegação",
+
+  // PlayerBar
+  "app.seekAria": "Posição da fala",
+  "app.seekValuePlaying": "{pct}% da fala",
+  "app.seekValueIdle": "sem fala",
+  "app.statePaused": "pausado",
+  "app.statePlaying": "tocando",
+  "app.stateIdle": "em espera",
+  "app.queuedInLine": "{n} na fila",
+  "app.nothingQueued": "nada na fila",
+  "app.pauseHintResume": "Retomar a fala de onde parou.",
+  "app.pauseHintPause": "Pausar a fala (retoma do mesmo ponto).",
+  "app.pauseAriaResume": "Retomar",
+  "app.pauseAriaPause": "Pausar",
+  "app.skipHint": "Pular a fala atual e ir para a próxima da fila.",
+  "app.skipAria": "Pular item atual",
+  "app.confirmStop": "confirmar?",
+  "app.stopHintArmed": "Clique de novo para confirmar.",
+  "app.stopHintIdle": "Parar tudo e limpar a fila inteira (pede confirmação).",
+  "app.stopAriaArmed": "Clique de novo para confirmar",
+  "app.stopAriaIdle": "Parar tudo e limpar fila",
+  "app.volumeHint": "Volume das falas: {pct}%",
+  "app.volumeAria": "Volume",
+
+  // StatusBadge
+  "app.statusQueuedLabel": "gerando",
+  "app.statusQueuedHint": "A voz está sendo sintetizada. Entra na fila de reprodução em instantes.",
+  "app.statusReadyLabel": "na fila",
+  "app.statusReadyHint": "Áudio pronto, aguardando a vez de tocar.",
+  "app.statusPlayingLabel": "tocando",
+  "app.statusPlayingHint": "Sendo falado agora.",
+  "app.statusDoneLabel": "falado",
+  "app.statusDoneHint": "Já foi falado. Use o botão ▶ para ouvir de novo.",
+  "app.statusErrorLabel": "erro",
+  "app.statusErrorHint": "A síntese falhou. Veja o motivo no item e tente de novo.",
+
+  // QueueList
+  "app.searchPlaceholder": "buscar na fila…",
+  "app.queueAriaLabel": "Fila de mensagens do YASS",
+  "app.emptyTitle": "Nada na fila ainda.",
+  "app.emptyHint": "As narrações dos seus agentes aparecem aqui.",
+  "app.noMatch": "Nenhuma fala bate com a busca.",
+  "app.upNextAria": "A seguir: {n}",
+  "app.upNextHeading": "a seguir",
+  "app.historyHeading": "histórico",
+
+  // QueueItem
+  "app.requeued": "Reenfileirado",
+  "app.requeueFailed": "Falha ao reenfileirar",
+  "app.sessionHint": "Sessão do Claude Code de origem desta resposta.",
+  "app.userSpeechHint": "Fala deliberada: você digitou e pediu para o Jarvis falar.",
+  "app.userSpeechBadge": "sua fala",
+  "app.retryHint": "Gerar a fala de novo (reenfileira este texto).",
+  "app.retryAria": "Tentar de novo",
+  "app.repeatHint": "Ouvir esta fala de novo.",
+  "app.repeatAria": "Repetir áudio",
+  "app.collapseAria": "Recolher",
+  "app.expandAria": "Ver entrada completa",
+  "app.inputLabel": "entrada",
+
+  // WelcomeCard
+  "app.providerOk": "ok",
+  "app.providerOptional": "opcional",
+  "app.providerMissing": "falta",
+  "app.welcomeTitle": "Bem-vindo ao YASS",
+  "app.welcomeBody": "Voz para os seus agentes de código. Traga sua chave (BYOK) da Fish Audio para ativar a narração.",
+  "app.configureKey": "Configurar chave",
+
+  // FontScale
+  "app.fontSizeGroup": "Tamanho da fonte",
+  "app.fontDecreaseHint": "Diminuir o tamanho da fonte do app inteiro.",
+  "app.fontDecreaseAria": "Diminuir tamanho da fonte",
+  "app.fontIncreaseHint": "Aumentar o tamanho da fonte do app inteiro.",
+  "app.fontIncreaseAria": "Aumentar tamanho da fonte",
+}

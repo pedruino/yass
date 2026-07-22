@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>YASS — Y Lab</title>
+<style>
+  :root{ --c:#c77dff; --g:#d9a8ff; --d:#7a3fb0; }
+  *{box-sizing:border-box}
+  body{margin:0;background:#0a0a0a;color:#e7def5;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding:28px}
+  h1{font-size:18px;margin:0 0 4px}
+  .bar{position:sticky;top:0;z-index:10;background:#0a0a0a;padding:10px 0 16px;margin-bottom:8px;border-bottom:1px solid #251d33}
+  .toggle{font:600 13px/1 -apple-system,sans-serif;color:#0c0a12;background:var(--c);border:none;border-radius:8px;padding:9px 16px;cursor:pointer}
+  .toggle.on{background:var(--g);box-shadow:0 0 16px var(--c)}
+  .hint{margin-left:12px;font-size:12px;color:#8a7da3}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .card{background:#141019;border:1px solid var(--c);box-shadow:0 0 0 1px var(--c) inset;border-radius:14px;padding:16px}
+  .name{font-size:13px;font-weight:700;color:var(--c);margin-bottom:2px}
+  .desc{font-size:11px;color:#8a7da3;margin-bottom:14px;min-height:30px}
+  .row{display:flex;align-items:center;gap:14px}
+  .dock{width:120px;height:120px;border-radius:27px;flex:none;background:radial-gradient(circle at 50% 40%,#1b1230,#120c20 55%,#08060e);box-shadow:inset 0 0 40px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .trays{display:flex;flex-direction:column;gap:8px}
+  .strip{display:flex;align-items:center;gap:8px;height:26px;padding:0 8px;border-radius:6px;font-size:10px}
+  .strip.light{background:#e9e9ec;color:#444}.strip.dark{background:#1b1b1d;color:#bbb}
+  .tag{font-size:9px;opacity:.6}
+  .cap{font-size:10px;color:#6f6388;margin-top:10px}
+
+  .scale{position:relative}
+  .dock .scale{width:84px;height:84px}.dock .ico{transform:scale(.84)}
+  .strip .scale{width:20px;height:20px}.strip .ico{transform:scale(.20)}
+  .ico{position:absolute;top:0;left:0;width:100px;height:100px;transform-origin:0 0}
+
+  @keyframes ray{0%{transform:rotate(var(--a)) translateY(var(--r0)) scaleY(.2);opacity:0}25%{opacity:.95}100%{transform:rotate(var(--a)) translateY(var(--r1)) scaleY(1);opacity:0}}
+  @keyframes yfwd{0%,100%{transform:translate(-50%,-50%) scale(.92);filter:drop-shadow(0 0 4px var(--c))}50%{transform:translate(-50%,-50%) scale(1.12);filter:drop-shadow(0 0 9px var(--g)) drop-shadow(0 0 16px var(--c))}}
+  @keyframes yneon{0%,100%{transform:translate(-50%,-50%) scale(.95);filter:drop-shadow(0 0 4px var(--c)) drop-shadow(0 0 8px var(--c))}50%{transform:translate(-50%,-50%) scale(1.08);filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 16px var(--g)) drop-shadow(0 0 26px var(--c))}}
+  @keyframes eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+  @keyframes ringpulse{0%,100%{filter:drop-shadow(0 0 5px var(--c))}50%{filter:drop-shadow(0 0 12px var(--g))}}
+
+  /* base de raios */
+  .rays{position:absolute;left:50%;top:50%;width:0;height:0}
+  .rays b{position:absolute;left:-1.5px;top:0;width:3px;height:18px;border-radius:2px;background:linear-gradient(var(--c),transparent);transform-origin:top center;opacity:0;--r0:6px;--r1:30px;animation:ray 2s ease-out infinite}
+  body.speaking .rays b{animation-duration:1s}
+
+  /* grupo Y comum (vem pra frente) */
+  .yy{position:absolute;left:50%;top:50%;width:60px;height:60px;z-index:2;filter:drop-shadow(0 0 5px var(--c));animation:yfwd 2.4s ease-in-out infinite}
+  body.speaking .yy{animation-duration:.9s}
+  .arm,.stem{position:absolute;left:50%;border-radius:7px;background:linear-gradient(var(--g),var(--c));box-shadow:0 0 3px var(--c)}
+  .arm{top:5px;width:13px;height:27px;transform-origin:bottom center}
+  .arm.l{transform:translateX(-50%) rotate(-32deg)} .arm.r{transform:translateX(-50%) rotate(32deg)}
+  .stem{top:30px;width:13px;height:26px;transform:translateX(-50%)}
+
+  /* A · NEON (traço fino, glow tubo) */
+  .yy.neon{animation:yneon 2.4s ease-in-out infinite}
+  .neon .arm,.neon .stem{width:7px;background:linear-gradient(#fff,var(--g));box-shadow:0 0 5px var(--c),0 0 11px var(--g)}
+
+  /* B · Y + EQ no caule */
+  .eqstem{position:absolute;left:50%;top:30px;transform:translateX(-50%);display:flex;gap:3px;align-items:flex-start;height:26px}
+  .eqstem i{display:block;width:5px;height:26px;border-radius:3px;background:linear-gradient(var(--g),var(--c));transform-origin:top center;box-shadow:0 0 3px var(--c);animation:eq 1s ease-in-out infinite}
+  .eqstem i:nth-child(2){animation-delay:-.3s}.eqstem i:nth-child(3){animation-delay:-.15s}
+  body.speaking .eqstem i{animation-duration:.45s}
+
+  /* C · Y dentro de anel */
+  .cring{position:absolute;inset:6px;border-radius:50%;border:5px solid var(--c);filter:drop-shadow(0 0 6px var(--c));animation:ringpulse 2.4s ease-in-out infinite}
+  body.speaking .cring{animation-duration:.9s}
+  .yy.sm{width:46px;height:46px}
+  .sm .arm{top:4px;height:20px;width:11px} .sm .stem{top:22px;height:20px;width:11px}
+
+  /* D · Y tapered + raios só nos 3 ângulos do Y */
+  .tap .arm,.tap .stem{clip-path:polygon(6% 0,94% 0,72% 100%,28% 100%)}
+  .tap .arm{width:16px}.tap .stem{width:16px;clip-path:polygon(20% 0,80% 0,66% 100%,34% 100%)}
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>🔊 YASS — Y Lab <span style="font-size:12px;color:#8a7da3;font-weight:400">(5 variações do Y)</span></h1>
+  <button class="toggle" id="tg">▶ Simular fala</button>
+  <span class="hint">Todas nítidas + glow. Clica pra ver vir pra frente + raios.</span>
+</div>
+<div class="grid" id="grid"></div>
+
+<script>
+function circRays(n){let s='';for(let i=0;i<n;i++){const a=(i*(360/n)).toFixed(1);const d=(i*(1.6/n)).toFixed(2);s+=`<b style="--a:${a}deg;animation-delay:${d}s"></b>`;}return s;}
+function dirRays(){return ['-32deg','32deg','180deg'].map((a,i)=>`<b style="--a:${a};--r1:34px;height:22px;animation-delay:${(i*0.2).toFixed(2)}s"></b>`).join('');}
+const ARMS = `<div class="arm l"></div><div class="arm r"></div><div class="stem"></div>`;
+function cell(name,desc,ico){
+  return `<div class="card">
+    <div class="name">${name}</div><div class="desc">${desc}</div>
+    <div class="row">
+      <div class="dock"><div class="scale"><div class="ico">${ico}</div></div></div>
+      <div class="trays">
+        <div class="strip light"><span class="tag">☀</span><div class="scale"><div class="ico">${ico}</div></div><span class="tag">YASS</span></div>
+        <div class="strip dark"><span class="tag">☾</span><div class="scale"><div class="ico">${ico}</div></div><span class="tag">YASS</span></div>
+      </div>
+    </div>
+    <div class="cap">Dock 120 · tray ~20 · animado</div>
+  </div>`;
+}
+const Y_CUR = `<div class="rays">${circRays(16)}</div><div class="yy">${ARMS}</div>`;
+const Y_NEON= `<div class="rays">${circRays(16)}</div><div class="yy neon">${ARMS}</div>`;
+const Y_EQ  = `<div class="rays">${circRays(12)}</div><div class="yy"><div class="arm l"></div><div class="arm r"></div></div><div class="eqstem"><i></i><i></i><i></i></div>`;
+const Y_RING= `<div class="cring"></div><div class="yy sm">${ARMS}</div>`;
+const Y_TAP = `<div class="rays">${dirRays()}</div><div class="yy tap">${ARMS}</div>`;
+
+document.getElementById('grid').innerHTML =
+  cell('Y · atual (bold + raios 360°)','A versão que tu curtiu — referência.',Y_CUR) +
+  cell('Y · A — Neon','Traço fino estilo tubo neon, glow forte. Mais elegante/leve.',Y_NEON) +
+  cell('Y · B — Caule equalizer','Os 2 braços + o caule é um mini-equalizer que pulsa na fala.',Y_EQ) +
+  cell('Y · C — Dentro do anel','Y dentro de um anel com glow (cara de app icon). Anel pulsa.',Y_RING) +
+  cell('Y · D — Tapered + raios no Y','Braços com leve afunilamento; raios só nos 3 ângulos do Y (semirretas no formato do Y).',Y_TAP);
+
+const tg=document.getElementById('tg');
+tg.onclick=()=>{document.body.classList.toggle('speaking');const on=document.body.classList.contains('speaking');tg.classList.toggle('on',on);tg.textContent=on?'■ Parar (modo falando)':'▶ Simular fala';};
+</script>
+</body>
+</html>

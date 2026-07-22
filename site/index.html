@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YASS — Your AI Speaking System</title>
+<meta name="description" content="When Claude Code finishes a task, YASS speaks the result out loud. Desktop app plus a local daemon, quality TTS, personas, a visual queue.">
+<link rel="icon" href="./icon.png">
+<meta property="og:title" content="YASS — Your AI Speaking System">
+<meta property="og:description" content="Gives your coding agents a voice. When Claude Code finishes a task, YASS speaks the result out loud.">
+<meta property="og:image" content="./icon.png">
+<style>
+  :root{
+    --bg:#0b0910; --panel:#141019; --panel-edge:#241d36; --step:#191324;
+    --fg:#f4f1fa; --muted:#a99fc0; --faint:#6f6786;
+    --brand:#8A2BE2; --brand-2:#c084fc;
+    --radius:16px; --maxw:960px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f7f5fb; --panel:#ffffff; --panel-edge:#e7e2f2; --step:#f3f0fa; --fg:#1a1526; --muted:#5c5470; --faint:#8b83a0; }
+  }
+  :root[data-theme="dark"]{ --bg:#0b0910; --panel:#141019; --panel-edge:#241d36; --step:#191324; --fg:#f4f1fa; --muted:#a99fc0; --faint:#6f6786; }
+  :root[data-theme="light"]{ --bg:#f7f5fb; --panel:#ffffff; --panel-edge:#e7e2f2; --step:#f3f0fa; --fg:#1a1526; --muted:#5c5470; --faint:#8b83a0; }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:radial-gradient(1200px 600px at 50% -10%, color-mix(in srgb, var(--brand) 18%, transparent), transparent), var(--bg);
+    color:var(--fg);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    transition:background-color .2s ease, color .2s ease;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  svg{display:block}
+
+  .theme-toggle{
+    position:fixed;top:16px;right:16px;z-index:10;
+    width:40px;height:40px;border-radius:11px;cursor:pointer;
+    background:var(--panel);border:1px solid var(--panel-edge);color:var(--fg);
+    display:grid;place-items:center;
+    transition:transform .12s ease, border-color .12s ease;
+  }
+  .theme-toggle:hover{transform:translateY(-1px);border-color:var(--brand)}
+
+  header{padding:80px 0 40px;text-align:center}
+  .icon{width:112px;height:112px;border-radius:26px;box-shadow:0 20px 60px -20px color-mix(in srgb, var(--brand) 60%, transparent)}
+  h1{font-size:48px;line-height:1.05;margin:24px 0 8px;letter-spacing:-.02em}
+  .tag{font-size:20px;color:var(--fg);font-weight:600;margin:0 0 6px}
+  .lede{font-size:18px;color:var(--muted);max-width:620px;margin:0 auto 28px}
+  .cta{display:inline-flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .btn{display:inline-block;padding:13px 22px;border-radius:12px;font-weight:600;text-decoration:none;transition:transform .12s ease}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{background:linear-gradient(180deg,var(--brand-2),var(--brand));color:#fff;box-shadow:0 10px 30px -10px var(--brand)}
+  .btn-ghost{border:1px solid var(--panel-edge);color:var(--fg)}
+  .badges{margin:22px 0 0;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .badges img{height:20px}
+
+  section h2{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:0 0 16px}
+
+  .diagram{background:var(--panel);border:1px solid var(--panel-edge);border-radius:var(--radius);padding:28px 20px;overflow-x:auto}
+  .diagram svg{margin:0 auto;max-width:100%;height:auto}
+  .note{color:var(--faint);font-size:13.5px;text-align:center;margin:16px 0 0}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:56px 0}
+  .card{background:var(--panel);border:1px solid var(--panel-edge);border-radius:var(--radius);padding:20px}
+  .card .ic{color:var(--brand);margin-bottom:10px}
+  .card .ic svg{width:22px;height:22px}
+  .card h3{margin:0 0 6px;font-size:16px}
+  .card p{margin:0;color:var(--muted);font-size:14.5px}
+  a.card{text-decoration:none;color:inherit;transition:border-color .12s ease, transform .12s ease}
+  a.card:hover{border-color:var(--brand);transform:translateY(-1px)}
+
+  .code{position:relative;background:var(--panel);border:1px solid var(--panel-edge);border-radius:var(--radius);padding:20px;overflow-x:auto}
+  .code pre{margin:0;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+  .copy{
+    position:absolute;top:12px;right:12px;
+    display:inline-flex;align-items:center;gap:6px;
+    padding:6px 10px;border-radius:9px;cursor:pointer;font-size:12px;font-weight:600;
+    background:var(--step);border:1px solid var(--panel-edge);color:var(--muted);
+    transition:color .12s ease, border-color .12s ease;
+  }
+  .copy:hover{color:var(--fg);border-color:var(--brand)}
+  .copy svg{width:15px;height:15px}
+
+  footer{border-top:1px solid var(--panel-edge);margin-top:64px;padding:28px 0 60px;text-align:center;color:var(--faint);font-size:14px}
+  footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme"></button>
+<div class="wrap">
+
+  <header>
+    <img class="icon" src="./icon.png" alt="YASS icon" width="112" height="112">
+    <h1>YASS</h1>
+    <p class="tag">Your AI Speaking System</p>
+    <p class="lede">Gives your coding agents a voice. When <strong>Claude Code</strong> finishes a task, YASS speaks the result out loud: a visual queue, personas, and quality text to speech.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/pedruino/yass/releases/latest">Download</a>
+      <a class="btn btn-ghost" href="./docs.html">Docs</a>
+      <a class="btn btn-ghost" href="https://github.com/pedruino/yass">Source</a>
+    </div>
+    <div class="badges">
+      <a href="https://github.com/pedruino/yass/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-8A2BE2.svg" alt="MIT"></a>
+      <a href="https://docs.anthropic.com/en/docs/claude-code"><img src="https://img.shields.io/badge/made%20for-Claude%20Code-8A2BE2.svg" alt="Made for Claude Code"></a>
+    </div>
+  </header>
+
+  <section>
+    <h2>How it works</h2>
+    <div class="diagram" id="mmd"></div>
+    <p class="note">Runs on your machine. Audio is synthesized via the Fish Audio API, so a Fish Audio key is required.</p>
+  </section>
+
+  <section>
+    <div class="grid">
+      <div class="card"><span class="ic" data-ic="volume"></span><h3>Speaks your agent</h3><p>The Claude Code Stop hook feeds each response to a local daemon that turns it into speech.</p></div>
+      <div class="card"><span class="ic" data-ic="sparkles"></span><h3>Personas</h3><p>Jarvis, Pumba, Narrator, Hype: prompt and emotion presets that change the voice and tone.</p></div>
+      <div class="card"><span class="ic" data-ic="waves"></span><h3>Quality TTS</h3><p>Fish Audio S2 voices, plus a public voice library you can search from the panel.</p></div>
+      <div class="card"><span class="ic" data-ic="list"></span><h3>Visual queue</h3><p>A real-time queue over SSE: what is playing, what is next, with a live waveform.</p></div>
+      <div class="card"><span class="ic" data-ic="mic"></span><h3>Pronunciation</h3><p>A phonetic glossary applied before TTS, so names and jargon come out right.</p></div>
+      <div class="card"><span class="ic" data-ic="monitor"></span><h3>Cross-platform</h3><p>Desktop app built with Tauri. Installers for macOS, Windows, and Linux are built in CI.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Get started</h2>
+    <div class="code">
+      <button class="copy" data-copy aria-label="Copy"></button>
+<pre id="startCode">git clone https://github.com/pedruino/yass.git
+cd yass &amp;&amp; cp .env.example .env     # add your FISH_API_KEY
+npm install
+cd app &amp;&amp; npm install &amp;&amp; npm run build &amp;&amp; cd ..
+node yass-daemon.js                 # daemon + app at http://localhost:3891</pre>
+    </div>
+    <p class="note">Or grab a prebuilt installer from the <a href="https://github.com/pedruino/yass/releases/latest" style="color:var(--muted)">latest release</a>.</p>
+  </section>
+
+  <section>
+    <h2>Documentation</h2>
+    <div class="grid">
+      <a class="card" href="./docs.html#readme"><h3>Overview</h3><p>What YASS is, prerequisites, and getting started.</p></a>
+      <a class="card" href="./docs.html#contributing"><h3>Contributing</h3><p>How to build, test, and send changes.</p></a>
+      <a class="card" href="./docs.html#waveform"><h3>Waveform spec</h3><p>The envelope pipeline behind the live waveform.</p></a>
+      <a class="card" href="./docs.html#tauri"><h3>Tauri app</h3><p>The desktop shell and daemon sidecar.</p></a>
+    </div>
+  </section>
+
+  <footer>
+    MIT © Pedro Escobar · <a href="https://github.com/pedruino/yass">github.com/pedruino/yass</a>
+  </footer>
+
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+  const s = (p, w=20) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="${w}" height="${w}">${p}</svg>`;
+  const ICONS = {
+    sun: s('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'),
+    moon: s('<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>'),
+    copy: s('<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>', 15),
+    check: s('<path d="M20 6 9 17l-5-5"/>', 15),
+    volume: s('<path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', 22),
+    sparkles: s('<path d="M9.94 14.06 8.5 20l-1.44-5.94L1 12.5l6.06-1.56L8.5 5l1.44 5.94L16 12.5z"/><path d="M18 3v4M20 5h-4M18 17v4M20 19h-4"/>', 22),
+    waves: s('<path d="M2 10v4M6 6v12M10 3v18M14 8v8M18 5v14M22 10v4"/>', 22),
+    list: s('<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>', 22),
+    mic: s('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/>', 22),
+    monitor: s('<rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/>', 22),
+  };
+  document.querySelectorAll('[data-ic]').forEach((el) => { el.innerHTML = ICONS[el.dataset.ic] || ''; });
+
+  const root = document.documentElement, btn = document.getElementById('themeToggle');
+  const sysDark = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const current = () => root.getAttribute('data-theme') || (sysDark() ? 'dark' : 'light');
+
+  const GRAPH = `flowchart LR
+    A(["Claude Code finishes"]) --> B["Stop hook"]
+    B --> C[("Daemon :3891")]
+    C --> D["Fish Audio TTS"]
+    C -.->|optional| O["OpenAI rewrite summarize"] -.-> D
+    D --> E(["YASS app · live queue"])`;
+
+  let mmId = 0;
+  async function renderMermaid() {
+    const el = document.getElementById('mmd');
+    if (!el) return;
+    mermaid.initialize({ startOnLoad: false, securityLevel: 'strict', theme: current() === 'dark' ? 'dark' : 'default', flowchart: { curve: 'basis' } });
+    const { svg } = await mermaid.render('mm' + (++mmId), GRAPH);
+    el.innerHTML = svg;
+  }
+
+  function apply(t) { root.setAttribute('data-theme', t); btn.innerHTML = t === 'dark' ? ICONS.sun : ICONS.moon; renderMermaid(); }
+
+  let saved = null; try { saved = localStorage.getItem('yass-theme'); } catch (e) {}
+  apply(saved || (sysDark() ? 'dark' : 'light'));
+  btn.addEventListener('click', () => {
+    const next = current() === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('yass-theme', next); } catch (e) {}
+  });
+
+  document.querySelectorAll('[data-copy]').forEach((b) => {
+    b.innerHTML = ICONS.copy;
+    b.addEventListener('click', async () => {
+      const code = document.getElementById('startCode').innerText;
+      try {
+        await navigator.clipboard.writeText(code);
+        b.innerHTML = ICONS.check + '<span>Copied</span>';
+        setTimeout(() => { b.innerHTML = ICONS.copy; }, 1500);
+      } catch (e) {}
+    });
+  });
+</script>
+</body>
+</html>

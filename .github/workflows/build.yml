@@ -1,0 +1,96 @@
+name: build
+
+# Builds installers for all 3 OSes: .dmg (mac arm64+x64), .msi/.exe (win), .deb/.rpm (linux).
+# The Node daemon ships as a sidecar compiled by Bun (target-triple in the name).
+
+on:
+  push:
+    branches: [main, feat/cross-platform]   # CI sanity: builds, does not publish
+    tags: ["v*"]                            # v* tag publishes a Release with installers
+  workflow_dispatch:
+
+jobs:
+  build:
+    # tauri-action creates the Release and uploads installers on a v* tag;
+    # that needs write access to repo contents (default GITHUB_TOKEN is read-only).
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            triple: aarch64-apple-darwin
+          # macos-13 (old Intel runner) was retired: infinite queue.
+          - os: macos-15-intel
+            triple: x86_64-apple-darwin
+          - os: windows-latest
+            triple: x86_64-pc-windows-msvc
+          - os: ubuntu-22.04
+            triple: x86_64-unknown-linux-gnu
+            # AppImage excluded: linuxdeploy runs `ldd` on the bun sidecar (static ELF)
+            # and aborts. .deb/.rpm do not go through linuxdeploy.
+            bundles: "--bundles deb rpm"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: oven-sh/setup-bun@v2
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Linux system deps (webkit/appindicator/fuse p/ AppImage)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libfuse2
+
+      - name: Install repo deps (daemon)
+        run: npm ci --omit=dev
+
+      - name: Install app deps
+        working-directory: app
+        run: npm ci
+
+      - name: Compile daemon sidecar (bun)
+        shell: bash
+        run: |
+          mkdir -p app/src-tauri/binaries
+          EXT=""
+          if [ "${{ runner.os }}" = "Windows" ]; then EXT=".exe"; fi
+          bun build yass-daemon.js --compile \
+            --outfile "app/src-tauri/binaries/yass-daemon-${{ matrix.triple }}${EXT}"
+
+      - name: Tauri build
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # linuxdeploy without strip (avoids failure on already-optimized binaries)
+          NO_STRIP: ${{ runner.os == 'Linux' && 'true' || '' }}
+        with:
+          projectPath: app
+          args: ${{ matrix.bundles || '' }}
+          # Only on v* tag push: creates/updates the Release and attaches installers.
+          # On branch push, all stay empty so tauri-action only builds (sanity).
+          tagName: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
+          releaseName: ${{ startsWith(github.ref, 'refs/tags/v') && format('YASS {0}', github.ref_name) || '' }}
+          releaseDraft: false
+          prerelease: false
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: yass-${{ matrix.triple }}
+          path: |
+            app/src-tauri/target/release/bundle/dmg/*.dmg
+            app/src-tauri/target/release/bundle/msi/*.msi
+            app/src-tauri/target/release/bundle/nsis/*.exe
+            app/src-tauri/target/release/bundle/deb/*.deb
+            app/src-tauri/target/release/bundle/rpm/*.rpm
+          if-no-files-found: warn

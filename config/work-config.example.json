@@ -1,0 +1,39 @@
+{
+  "working_hours": {
+    "start": "08:30",
+    "end": "18:00",
+    "timezone": "America/Sao_Paulo"
+  },
+  "breaks": [
+    {
+      "start": "12:00",
+      "end": "13:30",
+      "label": "Almoço"
+    }
+  ],
+  "morning_brief_at": "08:30",
+  "eod_recap_at": "17:30",
+  "pre_meeting_minutes_before": 15,
+  "event_driven": true,
+  "channels": {
+    "email": false,
+    "calendar": true,
+    "gitlab": true,
+    "jira": false,
+    "tinto": false
+  },
+  "communication": {
+    "format": "audio_and_text",
+    "style": "concise",
+    "language": "pt-BR"
+  },
+  "priority_weights": {
+    "urgency": 0.3,
+    "impact": 0.25,
+    "blocking_others": 0.2,
+    "due_date": 0.15,
+    "quick_win": 0.1,
+    "aging": 0.2
+  },
+  "gitlab_username": null
+}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>YASS — icon source (Monograma Y)</title>
+<style>
+  :root{ --c:#c77dff; --g:#d9a8ff; --d:#7a3fb0; }
+  html,body{margin:0;padding:0;background:transparent}
+  .stage{width:1024px;height:1024px;position:relative}
+  /* painel squircle (margem transparente p/ cantos macOS) */
+  .panel{position:absolute;inset:72px;border-radius:200px;
+    background:radial-gradient(circle at 50% 42%,#1b1230 0%,#120c20 48%,#08060e 100%);
+    box-shadow:inset 0 0 120px rgba(0,0,0,.6),inset 0 2px 0 rgba(255,255,255,.05);overflow:hidden}
+  .c{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+  /* raios frozen (radiantes) */
+  .rays b{position:absolute;left:-7px;top:0;width:14px;height:90px;border-radius:8px;
+    background:linear-gradient(var(--c),transparent);transform-origin:top center;opacity:.5;
+    transform:rotate(var(--a)) translateY(150px)}
+  /* halo geral */
+  .halo{width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(circle,rgba(199,125,255,.30),transparent 62%)}
+  /* Y bold nítido + halo */
+  .yy{width:430px;height:430px;filter:drop-shadow(0 0 26px var(--c)) drop-shadow(0 0 52px var(--g))}
+  .arm,.stem{position:absolute;left:50%;border-radius:48px;background:linear-gradient(var(--g),var(--c));box-shadow:0 0 18px var(--c)}
+  .arm{top:34px;width:92px;height:200px;transform-origin:bottom center}
+  .arm.l{transform:translateX(-50%) rotate(-32deg)}
+  .arm.r{transform:translateX(-50%) rotate(32deg)}
+  .stem{top:212px;width:92px;height:188px;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="panel">
+      <div class="c halo"></div>
+      <div class="c rays" id="rays"></div>
+      <div class="c yy">
+        <div class="arm l"></div><div class="arm r"></div><div class="stem"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let s='';for(let i=0;i<16;i++){s+=`<b style="--a:${(i*22.5).toFixed(1)}deg"></b>`;}
+    document.getElementById('rays').innerHTML=s;
+  </script>
+</body>
+</html>
